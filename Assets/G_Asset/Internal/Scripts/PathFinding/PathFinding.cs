@@ -25,7 +25,7 @@ public class PathFinding : MonoBehaviour
         Vector2Int startIndex = GetIndexPosition(start, offset);
         Vector2Int endIndex = GetIndexPosition(end, offset);
         List<Vector2> finalPaths = FindPath(startIndex, endIndex, x, y, blocked);
-        if (!finalPaths.Contains(end))
+        if (finalPaths.Count > 0 && !finalPaths.Contains(end))
         {
             finalPaths.Add(end);
         }
@@ -43,8 +43,15 @@ public class PathFinding : MonoBehaviour
     }
     public List<Vector2> FindPath(Vector2Int start, Vector2Int end, int x, int y, List<int> blocked)
     {
+        float offset = MapGenerator.instance.GetOffset();
         List<Vector2> paths = new();
         FindPath(new(start.x, start.y), new(end.x, end.y), x, y, blocked ?? new(), paths);
+        paths.Reverse();
+        for (int i = 0; i < paths.Count; i++)
+        {
+            Vector2 currentPath = paths[i];
+            paths[i] = new(currentPath.x * offset, currentPath.y * offset);
+        }
         return paths;
     }
     private void FindPath(int2 start, int2 end, int x, int y, List<int> blocked, List<Vector2> finalPaths)
@@ -157,7 +164,7 @@ public class PathFinding : MonoBehaviour
         NodePath endNode = nodes[endIndex];
         if (endNode.cameFromNode == -1)
         {
-            Debug.Log("Not founding");
+
         }
         else
         {

@@ -11,7 +11,9 @@ public class MapGenerator : MonoBehaviour
 
     public static Action<Vector2, Vector2, float> onGenerateMapDoneAction;
 
-    [SerializeField] private Texture2D map;
+    public static Action<List<Vector2>, List<EnemyItemConfig>> onGenerateMapDoneAction_enemySpawn;
+
+    [SerializeField] private Target target;
     [SerializeField] private float offset = 0.16f;
     private int width = 0;
     private int height = 0;
@@ -22,8 +24,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private List<TileRepresentItem> tiles = new();
     private Dictionary<Color, TileRepresentItem> tileStore = new();
     private List<int> blocked = new();
-    private List<Vector2> spawnEnemyPos = new();
-    private Vector2 spawnPos = new();
+    private Vector2 spawnPosIndex = new();
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -48,7 +49,7 @@ public class MapGenerator : MonoBehaviour
     }
     public Vector2 GetTargetPoint()
     {
-        return new(spawnPos.x * offset, spawnPos.y * offset);
+        return new(spawnPosIndex.x * offset, spawnPosIndex.y * offset);
     }
     public List<int> GetBlockedList()
     {
@@ -56,8 +57,12 @@ public class MapGenerator : MonoBehaviour
     }
     private void GenerateMap()
     {
+        MapScriptableObject currentMap = GameManager.instance.GetCurrentMap();
+        Texture2D map = currentMap.map;
+
         width = map.width;
         height = map.height;
+        List<Vector2> spawnEnemiesPos = new();
 
         for (int i = 0; i < width; i++)
         {
@@ -67,12 +72,12 @@ public class MapGenerator : MonoBehaviour
                 Color currentColor = map.GetPixel(i, j);
                 if (currentColor.Equals(spawnEnemyPosColor))
                 {
-                    spawnEnemyPos.Add(new(i, j));
+                    spawnEnemiesPos.Add(new(i, j));
                 }
 
                 if (currentColor.Equals(spawnPosColor))
                 {
-                    spawnPos = new(i, j);
+                    spawnPosIndex = new(i, j);
                 }
 
                 TileRepresentItem c_tile = null;
@@ -112,7 +117,15 @@ public class MapGenerator : MonoBehaviour
                 tileMap.SetTile(new(i, j), c_tile.tile);
             }
         }
-        onGenerateMapDoneAction?.Invoke(spawnPos, new(width - 1, height - 1), offset);
+        Vector2 targetSpawnPostion = GetTargetPoint();
+        Instantiate(target, targetSpawnPostion, Quaternion.identity);
+        onGenerateMapDoneAction?.Invoke(targetSpawnPostion, new(width - 1, height - 1), offset);
+        for (int i = 0; i < spawnEnemiesPos.Count; i++)
+        {
+            Vector2 spawnPos = spawnEnemiesPos[i];
+            spawnEnemiesPos[i] = new(spawnPos.x * offset, spawnPos.y * offset);
+        }
+        onGenerateMapDoneAction_enemySpawn?.Invoke(spawnEnemiesPos, currentMap.enemies);
     }
     public Vector2Int GetGridSize()
     {

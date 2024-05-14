@@ -12,6 +12,7 @@ public abstract class Enemy : Health
     protected Vector2 target;
     protected bool isHasPath;
     protected Animator animator;
+    protected EnemyName enemyName;
     public void EnemyInit()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,13 +25,16 @@ public abstract class Enemy : Health
     {
         if (!isHasPath)
         {
-            rb.MovePosition(rb.position + enemyDefault.speed * Time.deltaTime * target);
+            Vector2 targetPos = target - (Vector2)transform.position;
+            targetPos.Normalize();
+            rb.MovePosition(rb.position + enemyDefault.speed * Time.deltaTime * targetPos);
             return;
         }
         float distance = Vector2.Distance(transform.position, target);
         if (distance > enemyDefault.stopDistance)
         {
             Vector2 targetPos = target - (Vector2)transform.position;
+            targetPos.Normalize();
             rb.MovePosition(rb.position + enemyDefault.speed * Time.deltaTime * targetPos);
             return;
         }
@@ -83,5 +87,9 @@ public abstract class Enemy : Health
             target = GameManager.instance.GetTargetPosition();
             Rotation(target);
         }
+    }
+    public EnemyName GetEnemyName()
+    {
+        return enemyName;
     }
 }

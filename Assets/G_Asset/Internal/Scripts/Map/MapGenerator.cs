@@ -24,6 +24,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private List<TileRepresentItem> tiles = new();
     private Dictionary<Color, TileRepresentItem> tileStore = new();
     private List<int> blocked = new();
+    private List<int> blockedBuild = new();
     private Vector2 spawnPosIndex = new();
     private void Awake()
     {
@@ -114,6 +115,11 @@ public class MapGenerator : MonoBehaviour
                     blocked.Add(index);
                 }
 
+                if (c_tile.cannotBuild)
+                {
+                    blockedBuild.Add(index);
+                }
+
                 tileMap.SetTile(new(i, j), c_tile.tile);
             }
         }
@@ -137,5 +143,6 @@ public class TileRepresentItem
 {
     public Color color;
     public bool isWalkable;
+    public bool cannotBuild;
     public TileBase tile;
 }

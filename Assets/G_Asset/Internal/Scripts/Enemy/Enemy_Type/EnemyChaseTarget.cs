@@ -8,6 +8,10 @@ public class EnemyChaseTarget : Enemy
     {
         EnemyInit();
     }
+    private void Update()
+    {
+        Movement();
+    }
     public override void Attack()
     {
         Debug.Log("Attack");

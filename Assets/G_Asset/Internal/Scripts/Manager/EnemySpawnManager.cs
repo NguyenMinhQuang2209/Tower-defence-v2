@@ -6,17 +6,12 @@ using UnityEngine;
 public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager instance;
-    [SerializeField] private List<EnemyItem> enemyItems = new();
     private List<Vector2> spawnPos = new();
     private List<EnemyItemConfig> currentEnemies = new();
     private Dictionary<EnemyName, Enemy> enemyStore = new();
+    private Dictionary<int, int> timeStore = new();
     private float currentTimer = 0f;
-    [System.Serializable]
-    public struct EnemyItem
-    {
-        public Enemy enemy;
-        public EnemyName name;
-    }
+    int current = 0;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,10 +24,28 @@ public class EnemySpawnManager : MonoBehaviour
     private void Update()
     {
         currentTimer += Time.deltaTime;
-        for (int i = 0; i < enemyItems.Count; i++)
+        for (int i = 0; i < currentEnemies.Count; i++)
         {
-
+            EnemyItemConfig enemy = currentEnemies[i];
+            if (currentTimer >= enemy.spawnAt)
+            {
+                if (timeStore.ContainsKey(i))
+                {
+                    float time = timeStore[i] * enemy.timeBwtSpawn;
+                    if (currentTimer >= time)
+                    {
+                        timeStore[i] = timeStore[i] + 1;
+                        SpawnEnemy(enemy.enemy);
+                    }
+                }
+            }
         }
+    }
+    public void SpawnEnemy(Enemy enemy)
+    {
+        Vector2 spawnAt = spawnPos[current];
+        Instantiate(enemy, spawnAt, Quaternion.identity);
+        current = current == spawnPos.Count - 1 ? 0 : current + 1;
     }
     private void OnEnable()
     {
@@ -47,10 +60,16 @@ public class EnemySpawnManager : MonoBehaviour
     {
         spawnPos = list;
         currentEnemies?.Clear();
-        List<EnemyItem> temp = new(enemyItems);
+        List<Enemy> temp = new(EnemyPrefabManager.instance.GetEnemyItems());
         for (int i = 0; i < enemies.Count; i++)
         {
             EnemyItemConfig current = enemies[i];
+            int spawnTime = 0;
+            if (current.spawnAt > 0)
+            {
+                spawnTime = (int)Mathf.Ceil(current.spawnAt / current.timeBwtSpawn);
+            }
+            timeStore[i] = spawnTime;
             if (enemyStore.ContainsKey(current.name))
             {
                 current.enemy = enemyStore[current.name];
@@ -59,11 +78,12 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 for (int j = 0; j < temp.Count; j++)
                 {
-                    EnemyItem currentItem = temp[j];
-                    enemyStore[currentItem.name] = currentItem.enemy;
-                    if (currentItem.name == current.name)
+                    Enemy currentItem = temp[j];
+                    EnemyName name = currentItem.GetEnemyName();
+                    enemyStore[name] = currentItem;
+                    if (name.Equals(current.name))
                     {
-                        current.enemy = currentItem.enemy;
+                        current.enemy = currentItem;
                     }
                 }
                 temp?.Clear();

@@ -9,7 +9,7 @@ public class MapGenerator : MonoBehaviour
 {
     public static MapGenerator instance;
 
-    public static Action<Vector2, Vector2> onGenerateMapDoneAction;
+    public static Action<Vector2, Vector2, float> onGenerateMapDoneAction;
 
     [SerializeField] private Texture2D map;
     [SerializeField] private float offset = 0.16f;
@@ -38,6 +38,22 @@ public class MapGenerator : MonoBehaviour
     {
         GenerateMap();
     }
+    public float GetOffset()
+    {
+        return offset;
+    }
+    public Vector2Int GetMapSize()
+    {
+        return new(width, height);
+    }
+    public Vector2 GetTargetPoint()
+    {
+        return new(spawnPos.x * offset, spawnPos.y * offset);
+    }
+    public List<int> GetBlockedList()
+    {
+        return blocked;
+    }
     private void GenerateMap()
     {
         width = map.width;
@@ -51,12 +67,12 @@ public class MapGenerator : MonoBehaviour
                 Color currentColor = map.GetPixel(i, j);
                 if (currentColor.Equals(spawnEnemyPosColor))
                 {
-                    spawnEnemyPos.Add(new(i * offset, j * offset));
+                    spawnEnemyPos.Add(new(i, j));
                 }
 
                 if (currentColor.Equals(spawnPosColor))
                 {
-                    spawnPos = new(i * offset, j * offset);
+                    spawnPos = new(i, j);
                 }
 
                 TileRepresentItem c_tile = null;
@@ -96,7 +112,7 @@ public class MapGenerator : MonoBehaviour
                 tileMap.SetTile(new(i, j), c_tile.tile);
             }
         }
-        onGenerateMapDoneAction?.Invoke(spawnPos, new(width * offset - offset, height * offset - offset));
+        onGenerateMapDoneAction?.Invoke(spawnPos, new(width - 1, height - 1), offset);
     }
     public Vector2Int GetGridSize()
     {

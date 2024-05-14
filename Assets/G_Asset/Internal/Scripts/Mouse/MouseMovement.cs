@@ -30,11 +30,11 @@ public class MouseMovement : MonoBehaviour
         MapGenerator.onGenerateMapDoneAction -= OnGenerateMapDoneEvent;
     }
 
-    private void OnGenerateMapDoneEvent(Vector2 vector, Vector2 mapSize)
+    private void OnGenerateMapDoneEvent(Vector2 vector, Vector2 mapSize, float offset)
     {
         mCamera.transform.position = new(vector.x, vector.y, mCamera.transform.position.z);
-        mapWidth = mapSize.x;
-        mapHeight = mapSize.y;
+        mapWidth = mapSize.x * offset;
+        mapHeight = mapSize.y * offset;
     }
 
     private void Update()

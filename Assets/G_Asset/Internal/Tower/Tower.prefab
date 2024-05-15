@@ -171,10 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94947ce3eb240ce4aa34e28c4248c6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWalkable: 0
+  needReloadMap: 0
   useRequiredMask: 0
   requiredMask:
     serializedVersion: 2
     m_Bits: 0
   colliderMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128

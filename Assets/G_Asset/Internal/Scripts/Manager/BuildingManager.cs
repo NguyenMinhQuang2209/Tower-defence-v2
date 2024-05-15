@@ -10,6 +10,9 @@ public class BuildingManager : MonoBehaviour
     Vector2 pos;
     Vector2 rot;
     Vector2Int index;
+    private SpriteRenderer spriteRender;
+    private Vector3 rootSize = new();
+    private BoxCollider2D buildingCollider = null;
 
     public BuildingItem test;
     private void Awake()
@@ -35,6 +38,12 @@ public class BuildingManager : MonoBehaviour
             index = GetIndexPosition(mousePos, offset);
             pos = new(index.x * offset, index.y * offset);
             buildingItem = Instantiate(newBuildingItem, pos, Quaternion.Euler(rot));
+            spriteRender = buildingItem.GetComponent<SpriteRenderer>();
+            if (buildingItem.TryGetComponent<BoxCollider2D>(out buildingCollider))
+            {
+                rootSize = buildingCollider.size;
+                buildingCollider.size = new(rootSize.x - 0.02f, rootSize.y - 0.02f);
+            }
         }
         else
         {
@@ -50,6 +59,12 @@ public class BuildingManager : MonoBehaviour
             index = GetIndexPosition(mousePos, offset);
             pos = new(index.x * offset, index.y * offset);
             buildingItem.transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
+
+            if (spriteRender != null)
+            {
+                Color color = buildingItem.CanBuilding() ? Color.green : Color.red;
+                spriteRender.color = color;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -63,13 +78,17 @@ public class BuildingManager : MonoBehaviour
     }
     public void BuildItem()
     {
-        if (buildingItem != null)
+        if (buildingItem != null && buildingItem.CanBuilding())
         {
             if (!buildingItem.IsWalkable())
             {
                 MapGenerator.instance.AddBlockPosition(index);
-                Instantiate(buildingItem, pos, Quaternion.Euler(rot));
+                buildingItem.BuildItem();
+                buildingCollider.size = rootSize;
+                spriteRender.color = Color.white;
                 buildingItem = null;
+                spriteRender = null;
+                buildingCollider = null;
             }
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyDefault
   m_EditorClassIdentifier: 
   maxHealth: 100
-  speed: 0.5
+  speed: 0.3
   enemyName: 0
   enemyDamage: 1
   timeBwtAttack: 1

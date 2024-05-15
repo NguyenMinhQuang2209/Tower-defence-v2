@@ -12,9 +12,11 @@ public class BuildingItem : MonoBehaviour
     [SerializeField] private LayerMask colliderMask;
     private List<Collider2D> colliders = new();
     private List<Collider2D> requires = new();
+    private bool isBuilding = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isBuilding) { return; }
         int layer = collision.gameObject.layer;
         if (((1 << layer) & requiredMask) != 0)
         {
@@ -28,6 +30,7 @@ public class BuildingItem : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (isBuilding) { return; }
         int layer = collision.gameObject.layer;
         if (((1 << layer) & requiredMask) != 0)
         {
@@ -38,6 +41,14 @@ public class BuildingItem : MonoBehaviour
         {
             colliders.Remove(collision);
         }
+    }
+    public void BuildItem()
+    {
+        colliders?.Clear();
+        requires?.Clear();
+        isBuilding = true;
+        GetComponent<Collider2D>().isTrigger = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
     }
     public bool CanBuilding()
     {

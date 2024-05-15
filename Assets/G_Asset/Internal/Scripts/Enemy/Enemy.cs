@@ -26,8 +26,6 @@ public abstract class Enemy : Health
     {
         if (!isHasPath)
         {
-            return;
-
             Vector2 targetPos = target - (Vector2)transform.position;
             targetPos.Normalize();
             rb.MovePosition(rb.position + enemyDefault.speed * Time.deltaTime * targetPos);
@@ -89,13 +87,12 @@ public abstract class Enemy : Health
             isHasPath = false;
             target = GameManager.instance.GetTargetPosition();
         }
-
-        if (paths.Count > 0)
+        else
         {
             target = paths[0];
             paths.RemoveAt(0);
-            Rotation(target);
         }
+        Rotation(target);
     }
     public EnemyName GetEnemyName()
     {

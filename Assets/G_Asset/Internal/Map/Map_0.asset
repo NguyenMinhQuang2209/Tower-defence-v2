@@ -15,11 +15,11 @@ MonoBehaviour:
   map: {fileID: 2800000, guid: 185dc82d3d8d5c342b8aec7769c2af81, type: 3}
   enemies:
   - name: 0
-    spawnTime: 0
+    spawnTime: 10
     timeBwtSpawn: 2
     spawnAt: -1
     enemy: {fileID: 8450242307559083775, guid: 1e487ace92118b44b8dfffdbd1b255fc, type: 3}
-    currentAmount: 0
-    currentTime: 1
+    currentAmount: 9
+    currentTime: 10
   winningType: 0
   winValue: 20

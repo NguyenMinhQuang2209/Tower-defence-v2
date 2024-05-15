@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public static Action<Vector2, Vector2, float> onGenerateMapDoneAction;
 
     public static Action<List<Vector2>, List<EnemyItemConfig>> onGenerateMapDoneAction_enemySpawn;
+    public static Action reloadMapAction;
 
     [SerializeField] private Target target;
     [SerializeField] private float offset = 0.16f;
@@ -133,9 +135,31 @@ public class MapGenerator : MonoBehaviour
         }
         onGenerateMapDoneAction_enemySpawn?.Invoke(spawnEnemiesPos, currentMap.enemies);
     }
+    public int GetIndex(Vector2Int pos)
+    {
+        return pos.x * height + pos.y;
+    }
     public Vector2Int GetGridSize()
     {
         return new(width, height);
+    }
+    public void AddBlockPosition(Vector2Int pos)
+    {
+        int index = GetIndex(pos);
+        if (!blocked.Contains(index))
+        {
+            blocked.Add(index);
+            reloadMapAction?.Invoke();
+        }
+    }
+    public void RemoveBlockPosition(Vector2Int pos)
+    {
+        int index = GetIndex(pos);
+        if (blocked.Contains(index))
+        {
+            blocked.Remove(index);
+            reloadMapAction?.Invoke();
+        }
     }
 }
 [System.Serializable]

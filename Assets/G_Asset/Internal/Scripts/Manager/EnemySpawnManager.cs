@@ -9,7 +9,6 @@ public class EnemySpawnManager : MonoBehaviour
     private List<Vector2> spawnPos = new();
     private List<EnemyItemConfig> currentEnemies = new();
     private Dictionary<EnemyName, Enemy> enemyStore = new();
-    private Dictionary<int, int> timeStore = new();
     private float currentTimer = 0f;
     int current = 0;
     private void Awake()
@@ -29,13 +28,20 @@ public class EnemySpawnManager : MonoBehaviour
             EnemyItemConfig enemy = currentEnemies[i];
             if (currentTimer >= enemy.spawnAt)
             {
-                if (timeStore.ContainsKey(i))
+                float time = enemy.currentTime * enemy.timeBwtSpawn;
+                if (currentTimer >= time)
                 {
-                    float time = timeStore[i] * enemy.timeBwtSpawn;
-                    if (currentTimer >= time)
+                    SpawnEnemy(enemy.enemy);
+                    enemy.currentTime += 1;
+
+                    if (enemy.currentAmount + 1 >= enemy.spawnTime)
                     {
-                        timeStore[i] = timeStore[i] + 1;
-                        SpawnEnemy(enemy.enemy);
+                        currentEnemies.RemoveAt(i);
+                        i--;
+                    }
+                    else
+                    {
+                        enemy.currentAmount += 1;
                     }
                 }
             }
@@ -69,7 +75,9 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 spawnTime = (int)Mathf.Ceil(current.spawnAt / current.timeBwtSpawn);
             }
-            timeStore[i] = spawnTime;
+            current.currentAmount = 0;
+            current.currentTime = spawnTime;
+
             if (enemyStore.ContainsKey(current.name))
             {
                 current.enemy = enemyStore[current.name];
@@ -88,7 +96,7 @@ public class EnemySpawnManager : MonoBehaviour
                 }
                 temp?.Clear();
             }
+            currentEnemies.Add(current);
         }
-        currentEnemies = enemies;
     }
 }

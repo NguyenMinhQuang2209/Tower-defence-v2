@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,5 +92,19 @@ public abstract class Enemy : Health
     public EnemyName GetEnemyName()
     {
         return enemyName;
+    }
+    private void OnEnable()
+    {
+        MapGenerator.reloadMapAction += ReloadMapEvent;
+    }
+
+    private void ReloadMapEvent()
+    {
+        FindPath();
+    }
+
+    private void OnDisable()
+    {
+        MapGenerator.reloadMapAction -= ReloadMapEvent;
     }
 }

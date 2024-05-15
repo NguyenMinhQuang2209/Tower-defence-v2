@@ -23,4 +23,6 @@ public class EnemyItemConfig
     [Tooltip("Enemy spawn at time")]
     public float spawnAt;
     [HideInInspector] public Enemy enemy;
+    [HideInInspector] public int currentAmount = 0;
+    [HideInInspector] public int currentTime = 0;
 }

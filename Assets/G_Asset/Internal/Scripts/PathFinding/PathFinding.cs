@@ -58,7 +58,7 @@ public class PathFinding : MonoBehaviour
     }
     private void FindPath(int2 start, int2 end, int x, int y, List<int> blocked, List<Vector2> finalPaths)
     {
-        NativeArray<NodePath> nodes = new(x * y, Allocator.Temp);
+        NativeArray<NodePath> nodes = new NativeArray<NodePath>(x * y, Allocator.Temp);
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
@@ -67,20 +67,23 @@ public class PathFinding : MonoBehaviour
                 NodePath node = new()
                 {
                     index = index,
-                    x = x,
-                    y = y,
+                    x = i,
+                    y = j,
                     gCost = int.MaxValue,
+                    hCost = 0,
                     isWalkable = !blocked.Contains(index),
                     cameFromNode = -1
                 };
+                node.CalculateFCost();
                 nodes[index] = node;
             }
         }
-        NativeList<int> processed = new(Allocator.Temp);
-        NativeList<int> closed = new(Allocator.Temp);
+        NativeList<int> processed = new NativeList<int>(Allocator.Temp);
+        NativeList<int> closed = new NativeList<int>(Allocator.Temp);
 
         int startIndex = GetIndex(start, y);
-        int endIndex = GetIndex(end, x);
+        int endIndex = GetIndex(end, y);
+
         NodePath startNode = nodes[startIndex];
 
         startNode.cameFromNode = -1;
@@ -91,6 +94,18 @@ public class PathFinding : MonoBehaviour
         nodes[startIndex] = startNode;
 
         processed.Add(startIndex);
+
+        NativeList<int2> neighbours = new(Allocator.Temp)
+            {
+                new(+1,+1),
+                new(-1,-1),
+                new(+1,-1),
+                new(-1,+1),
+                new(+1,0),
+                new(0,+1),
+                new(-1,0),
+                new(0,-1)
+            };
 
         while (processed.Length > 0)
         {
@@ -111,22 +126,10 @@ public class PathFinding : MonoBehaviour
             }
             closed.Add(current.index);
 
-            NativeList<int2> neighbours = new(Allocator.Temp)
-            {
-                new(+1,+1),
-                new(-1,-1),
-                new(+1,-1),
-                new(-1,+1),
-                new(+1,0),
-                new(0,+1),
-                new(-1,0),
-                new(0,-1)
-            };
-
             for (int i = 0; i < neighbours.Length; i++)
             {
-                int2 offset = neighbours[i];
-                int2 neibourPos = new(current.x + offset.x, current.y + offset.y);
+                int2 offsetNeighbour = neighbours[i];
+                int2 neibourPos = new(current.x + offsetNeighbour.x, current.y + offsetNeighbour.y);
                 if (IsValidPosition(neibourPos, x, y))
                 {
                     int neighbourIndex = GetIndex(neibourPos, y);
@@ -156,17 +159,21 @@ public class PathFinding : MonoBehaviour
                         neighbour.CalculateFCost();
                         nodes[neighbourIndex] = neighbour;
 
-                        processed.Add(neighbour.index);
+                        if (!processed.Contains(neighbourIndex))
+                        {
+                            processed.Add(neighbourIndex);
+                        }
                     }
                 }
             }
-            neighbours.Dispose();
         }
+        neighbours.Dispose();
+
 
         NodePath endNode = nodes[endIndex];
         if (endNode.cameFromNode == -1)
         {
-
+            Debug.Log("No path found");
         }
         else
         {
@@ -182,7 +189,6 @@ public class PathFinding : MonoBehaviour
                 current = nRoot;
             }
         }
-
         processed.Dispose();
         closed.Dispose();
         nodes.Dispose();

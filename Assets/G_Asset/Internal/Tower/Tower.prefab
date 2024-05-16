@@ -179,4 +179,4 @@ MonoBehaviour:
     m_Bits: 0
   colliderMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384

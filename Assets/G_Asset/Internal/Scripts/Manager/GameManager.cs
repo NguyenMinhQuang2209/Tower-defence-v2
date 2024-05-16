@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private List<MapScriptableObject> maps = new();
     [SerializeField] private int currentMap = 0;
+    private Vector2 target = new();
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -22,14 +24,77 @@ public class GameManager : MonoBehaviour
         Vector2Int size = MapGenerator.instance.GetMapSize();
         List<int> blockedListIndex = MapGenerator.instance.GetBlockedList();
         List<Vector2> paths = PathFinding.instance.FindPath(start, end, size.x, size.y, blockedListIndex);
+
+        // Find nearly position if there are no way to go to the end point
+        /*if (paths.Count == 0)
+        {
+            Vector2Int targetIndex = MapGenerator.instance.GetTargetIndex();
+            int neighbourOffsetSize = 2;
+            Vector2Int[] neighbour = new Vector2Int[8] {
+            new(+1,+1),
+            new(-1,-1),
+            new(+1,0),
+            new(+1,-1),
+            new(-1,+1),
+            new(0,+1),
+            new(-1,0),
+            new(0,-1)
+            };
+
+            while (paths.Count == 0)
+            {
+                Vector2 newTargetPosition = new();
+                float distance = -1f;
+                bool hasNewPos = false;
+
+                for (int i = 0; i < neighbour.Length; i++)
+                {
+                    Vector2Int neighbourOffset = neighbour[i];
+                    Vector2Int neighbourVectorIndex = new(targetIndex.x + neighbourOffset.x * neighbourOffsetSize, targetIndex.y + neighbourOffset.y * neighbourOffsetSize);
+                    int neighbourIndex = MapGenerator.instance.GetIndex(neighbourVectorIndex);
+
+                    bool isValuePos = neighbourVectorIndex.x >= 0 && neighbourVectorIndex.y >= 0 && neighbourVectorIndex.x < size.x && neighbourVectorIndex.y < size.y;
+                    if (isValuePos)
+                    {
+                        if (!blockedListIndex.Contains(neighbourIndex))
+                        {
+                            hasNewPos = true;
+                            if (distance == -1)
+                            {
+                                newTargetPosition = MapGenerator.instance.GetIndexPosition(neighbourVectorIndex);
+                                distance = Vector2.Distance(start, newTargetPosition);
+                            }
+                            else
+                            {
+                                Vector2 tempNewTargetPosition = MapGenerator.instance.GetIndexPosition(neighbourVectorIndex);
+                                float pointsDistance = Vector2.Distance(start, tempNewTargetPosition);
+                                if (pointsDistance > distance)
+                                {
+                                    newTargetPosition = tempNewTargetPosition;
+                                    distance = pointsDistance;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (hasNewPos)
+                {
+                    Debug.Log(newTargetPosition);
+                    paths = PathFinding.instance.FindPath(start, newTargetPosition, size.x, size.y, blockedListIndex);
+                }
+                neighbourOffsetSize++;
+                if (neighbourOffsetSize >= 5)
+                {
+                    break;
+                }
+            }
+        }*/
         return paths;
     }
     public List<Vector2> FindPaths(Vector2 start)
     {
-        Vector2Int size = MapGenerator.instance.GetMapSize();
-        List<int> blockedListIndex = MapGenerator.instance.GetBlockedList();
         Vector2 target = MapGenerator.instance.GetTargetPoint();
-        List<Vector2> paths = PathFinding.instance.FindPath(start, target, size.x, size.y, blockedListIndex);
+        List<Vector2> paths = FindPaths(start, target);
         return paths;
     }
     public Vector2 GetTargetPosition()

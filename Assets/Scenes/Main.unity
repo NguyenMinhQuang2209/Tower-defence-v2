@@ -565,6 +565,7 @@ GameObject:
   - component: {fileID: 612031823}
   - component: {fileID: 612031822}
   - component: {fileID: 612031824}
+  - component: {fileID: 612031825}
   m_Layer: 0
   m_Name: ==========Manager_DontDestroy
   m_TagString: Untagged
@@ -630,6 +631,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 8450242307559083775, guid: 1e487ace92118b44b8dfffdbd1b255fc, type: 3}
+--- !u!114 &612031825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612031820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90418f21ca72bd44c9ef992b92bcfd57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,10 +31,8 @@ public class EnemySpawnManager : MonoBehaviour
                 float time = enemy.currentTime * enemy.timeBwtSpawn;
                 if (currentTimer >= time)
                 {
-                    SpawnEnemy(enemy.enemy);
-                    enemy.currentTime += 1;
 
-                    if (enemy.currentAmount + 1 >= enemy.spawnTime)
+                    if (enemy.currentAmount + 1 > enemy.spawnTime)
                     {
                         currentEnemies.RemoveAt(i);
                         i--;
@@ -42,6 +40,8 @@ public class EnemySpawnManager : MonoBehaviour
                     else
                     {
                         enemy.currentAmount += 1;
+                        SpawnEnemy(enemy.enemy);
+                        enemy.currentTime += 1;
                     }
                 }
             }

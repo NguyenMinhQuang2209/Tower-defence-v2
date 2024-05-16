@@ -82,13 +82,20 @@ public class BuildingManager : MonoBehaviour
         {
             if (!buildingItem.IsWalkable())
             {
-                MapGenerator.instance.AddBlockPosition(index);
-                buildingItem.BuildItem();
-                buildingCollider.size = rootSize;
-                spriteRender.color = Color.white;
-                buildingItem = null;
-                spriteRender = null;
-                buildingCollider = null;
+                bool canBuilding = MapGenerator.instance.CanAddBlockPosition(index);
+                if (canBuilding)
+                {
+                    buildingItem.BuildItem();
+                    buildingCollider.size = rootSize;
+                    spriteRender.color = Color.white;
+                    buildingItem = null;
+                    spriteRender = null;
+                    buildingCollider = null;
+                }
+                else
+                {
+                    LogManager.instance.Log("Having at least one empty position");
+                }
             }
         }
     }

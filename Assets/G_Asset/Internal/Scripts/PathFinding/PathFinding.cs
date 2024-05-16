@@ -56,7 +56,65 @@ public class PathFinding : MonoBehaviour
         }
         return paths;
     }
+    public List<Vector2> FindPath2(Vector2Int start, Vector2Int end, int x, int y, List<int> blocked)
+    {
+        float offset = MapGenerator.instance.GetOffset();
+        List<Vector2> paths = new();
+        FindPath2(new(start.x, start.y), new(end.x, end.y), x, y, blocked ?? new(), paths);
+        paths.Reverse();
+        for (int i = 0; i < paths.Count; i++)
+        {
+            Vector2 currentPath = paths[i];
+            paths[i] = new(currentPath.x * offset, currentPath.y * offset);
+        }
+        return paths;
+    }
+
+    public List<Vector2> FindPath2(Vector2 start, Vector2 end, int x, int y, List<int> blocked)
+    {
+        float offset = MapGenerator.instance.GetOffset();
+
+        Vector2Int startIndex = GetIndexPosition(start, offset);
+        Vector2Int endIndex = GetIndexPosition(end, offset);
+
+        List<Vector2> finalPaths = FindPath2(startIndex, endIndex, x, y, blocked);
+        if (finalPaths.Count > 0 && !finalPaths.Contains(end))
+        {
+            finalPaths.Add(end);
+        }
+        return finalPaths;
+    }
     private void FindPath(int2 start, int2 end, int x, int y, List<int> blocked, List<Vector2> finalPaths)
+    {
+        NativeList<int2> neighbours = new(Allocator.Temp)
+            {
+                new(+1,+1),
+                new(-1,-1),
+                new(+1,-1),
+                new(-1,+1),
+                new(+1,0),
+                new(0,+1),
+                new(-1,0),
+                new(0,-1)
+            };
+        FindPath(start, end, x, y, blocked, finalPaths, neighbours);
+        neighbours.Dispose();
+    }
+
+    private void FindPath2(int2 start, int2 end, int x, int y, List<int> blocked, List<Vector2> finalPaths)
+    {
+        NativeList<int2> neighbours = new(Allocator.Temp)
+            {
+                new(+1,0),
+                new(0,+1),
+                new(-1,0),
+                new(0,-1)
+            };
+        FindPath(start, end, x, y, blocked, finalPaths, neighbours);
+        neighbours.Dispose();
+    }
+
+    private void FindPath(int2 start, int2 end, int x, int y, List<int> blocked, List<Vector2> finalPaths, NativeList<int2> neighbours)
     {
         NativeArray<NodePath> nodes = new NativeArray<NodePath>(x * y, Allocator.Temp);
         for (int i = 0; i < x; i++)
@@ -95,17 +153,6 @@ public class PathFinding : MonoBehaviour
 
         processed.Add(startIndex);
 
-        NativeList<int2> neighbours = new(Allocator.Temp)
-            {
-                new(+1,+1),
-                new(-1,-1),
-                new(+1,-1),
-                new(-1,+1),
-                new(+1,0),
-                new(0,+1),
-                new(-1,0),
-                new(0,-1)
-            };
 
         while (processed.Length > 0)
         {
@@ -167,7 +214,6 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
-        neighbours.Dispose();
 
 
         NodePath endNode = nodes[endIndex];

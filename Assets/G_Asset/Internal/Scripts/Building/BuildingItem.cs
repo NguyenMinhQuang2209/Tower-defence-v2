@@ -6,13 +6,13 @@ using UnityEngine;
 public class BuildingItem : MonoBehaviour
 {
     [SerializeField] private bool isWalkable = false;
-    [SerializeField] private bool needReloadMap = false;
     [SerializeField] private bool useRequiredMask = false;
     [SerializeField] private LayerMask requiredMask;
     [SerializeField] private LayerMask colliderMask;
     private List<Collider2D> colliders = new();
     private List<Collider2D> requires = new();
     private bool isBuilding = false;
+    [SerializeField] private SpriteRenderer spriteRender;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -58,8 +58,12 @@ public class BuildingItem : MonoBehaviour
     {
         return isWalkable;
     }
-    public bool GetNeedReloadMap()
+    public SpriteRenderer GetSpriteRender()
     {
-        return needReloadMap;
+        if (spriteRender == null)
+        {
+            spriteRender = GetComponent<SpriteRenderer>();
+        }
+        return spriteRender;
     }
 }

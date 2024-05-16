@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private List<MapScriptableObject> maps = new();
     [SerializeField] private int currentMap = 0;
-    private Vector2 target = new();
     private void Awake()
     {
         if (instance != null && instance != this)

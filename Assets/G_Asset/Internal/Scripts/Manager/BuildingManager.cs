@@ -7,6 +7,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private Camera mCamera;
     public static BuildingManager instance;
     private BuildingItem buildingItem = null;
+    private BuildingItem prefabBuildingItem = null;
     Vector2 pos;
     Vector2 rot;
     Vector2Int index;
@@ -15,6 +16,7 @@ public class BuildingManager : MonoBehaviour
     private BoxCollider2D buildingCollider = null;
 
     public BuildingItem test;
+    public BuildingItem foundation;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -30,15 +32,15 @@ public class BuildingManager : MonoBehaviour
         {
             DestroyImmediate(buildingItem.gameObject);
         }
-
+        prefabBuildingItem = newBuildingItem;
         if (newBuildingItem != null)
         {
             Vector2 mousePos = mCamera.ScreenToWorldPoint(Input.mousePosition);
             float offset = MapGenerator.instance.GetOffset();
             index = GetIndexPosition(mousePos, offset);
             pos = new(index.x * offset, index.y * offset);
-            buildingItem = Instantiate(newBuildingItem, pos, Quaternion.Euler(rot));
-            spriteRender = buildingItem.GetComponent<SpriteRenderer>();
+            buildingItem = Instantiate(prefabBuildingItem, pos, Quaternion.Euler(rot));
+            spriteRender = buildingItem.GetSpriteRender();
             if (buildingItem.TryGetComponent<BoxCollider2D>(out buildingCollider))
             {
                 rootSize = buildingCollider.size;
@@ -71,6 +73,10 @@ public class BuildingManager : MonoBehaviour
         {
             ChangeBuildingItem(test);
         }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            ChangeBuildingItem(foundation);
+        }
         if (Input.GetMouseButtonDown(1))
         {
             BuildItem();
@@ -78,25 +84,25 @@ public class BuildingManager : MonoBehaviour
     }
     public void BuildItem()
     {
+        Debug.Log(buildingItem.CanBuilding());
         if (buildingItem != null && buildingItem.CanBuilding())
         {
             if (!buildingItem.IsWalkable())
             {
                 bool canBuilding = MapGenerator.instance.CanAddBlockPosition(index);
-                if (canBuilding)
-                {
-                    buildingItem.BuildItem();
-                    buildingCollider.size = rootSize;
-                    spriteRender.color = Color.white;
-                    buildingItem = null;
-                    spriteRender = null;
-                    buildingCollider = null;
-                }
-                else
+                if (!canBuilding)
                 {
                     LogManager.instance.Log("Having at least one empty position");
+                    return;
                 }
             }
+            buildingItem.BuildItem();
+            buildingCollider.size = rootSize;
+            spriteRender.color = Color.white;
+            buildingItem = null;
+            spriteRender = null;
+            buildingCollider = null;
+            ChangeBuildingItem(prefabBuildingItem);
         }
     }
     public Vector2Int GetIndexPosition(Vector2 start, float offset)

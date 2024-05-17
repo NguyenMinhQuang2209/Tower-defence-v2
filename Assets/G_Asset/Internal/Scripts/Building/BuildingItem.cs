@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BuildingItem : MonoBehaviour
+public abstract class BuildingItem : MonoBehaviour
 {
-    [SerializeField] private bool isWalkable = false;
-    [SerializeField] private bool useRequiredMask = false;
-    [SerializeField] private LayerMask requiredMask;
-    [SerializeField] private LayerMask colliderMask;
-    private List<Collider2D> colliders = new();
-    private List<Collider2D> requires = new();
-    private bool isBuilding = false;
-    [SerializeField] private SpriteRenderer spriteRender;
+    [SerializeField] protected bool isWalkable = false;
+    [SerializeField] protected bool useRequiredMask = false;
+    [SerializeField] protected LayerMask requiredMask;
+    [SerializeField] protected LayerMask colliderMask;
+    protected List<Collider2D> colliders = new();
+    protected List<Collider2D> requires = new();
+    protected bool isBuilding = false;
+    [SerializeField] protected SpriteRenderer spriteRender;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,13 +42,14 @@ public class BuildingItem : MonoBehaviour
             colliders.Remove(collision);
         }
     }
-    public void BuildItem()
+    public virtual void BuildItemInit()
     {
         colliders?.Clear();
         requires?.Clear();
         isBuilding = true;
         GetComponent<Collider2D>().isTrigger = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<BuildingItem>().enabled = false;
     }
     public bool CanBuilding()
     {

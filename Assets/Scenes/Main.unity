@@ -770,8 +770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCamera: {fileID: 519420031}
-  test: {fileID: -5781821037893687009, guid: 942b791367dcf5346a22011e7611a3e0, type: 3}
-  foundation: {fileID: 696049619029788669, guid: 9d753cbab118fa2498fbc16c4ecce87b, type: 3}
+  test: {fileID: 2230228586230477012, guid: 9d753cbab118fa2498fbc16c4ecce87b, type: 3}
+  foundation: {fileID: 1792940899287093681, guid: 942b791367dcf5346a22011e7611a3e0, type: 3}
 --- !u!1 &946461989
 GameObject:
   m_ObjectHideFlags: 0

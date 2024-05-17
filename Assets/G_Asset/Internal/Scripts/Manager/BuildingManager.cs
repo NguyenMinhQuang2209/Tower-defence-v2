@@ -84,7 +84,6 @@ public class BuildingManager : MonoBehaviour
     }
     public void BuildItem()
     {
-        Debug.Log(buildingItem.CanBuilding());
         if (buildingItem != null && buildingItem.CanBuilding())
         {
             if (!buildingItem.IsWalkable())
@@ -96,7 +95,7 @@ public class BuildingManager : MonoBehaviour
                     return;
                 }
             }
-            buildingItem.BuildItem();
+            buildingItem.BuildItemInit();
             buildingCollider.size = rootSize;
             spriteRender.color = Color.white;
             buildingItem = null;

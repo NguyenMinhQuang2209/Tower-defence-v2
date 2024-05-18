@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 978012912, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   itemName: 1
-  displayName: 
-  itemType: 0
-  prefabs: {fileID: 8866246944801090825, guid: 942b791367dcf5346a22011e7611a3e0, type: 3}
+  displayName: "L\xEDnh canh"
+  prefabs: {fileID: -6761508296717979515, guid: 942b791367dcf5346a22011e7611a3e0, type: 3}

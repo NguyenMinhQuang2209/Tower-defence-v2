@@ -5,8 +5,11 @@ using UnityEngine;
 public class PrefabPreferenceManager : MonoBehaviour
 {
     public static PrefabPreferenceManager instance;
+    [field: SerializeField] public Card card { get; private set; }
+
     [SerializeField] private List<CardItem> cardItems = new();
     private Dictionary<ItemName, CardItem> cardDictionary = new();
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -27,5 +30,15 @@ public class PrefabPreferenceManager : MonoBehaviour
             }
         }
         return cardDictionary[itemName];
+    }
+    public List<CardItem> GetCardItemRandomly(int amount)
+    {
+        List<CardItem> cards = new();
+        for (int i = 0; i < amount; i++)
+        {
+            int pos = Random.Range(0, cardItems.Count);
+            cards.Add(cardItems[pos]);
+        }
+        return cards;
     }
 }

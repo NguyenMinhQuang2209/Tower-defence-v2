@@ -9,8 +9,7 @@ public class CardItem : ScriptableObject
     [SerializeField] private Sprite image;
     [SerializeField] private ItemName itemName;
     [SerializeField] private string displayName;
-    [SerializeField] private ItemType itemType;
-    [SerializeField] private GameObject prefabs;
+    [SerializeField] private PrefabItem prefabs;
     public Sprite GetImage()
     {
         return image;
@@ -23,26 +22,13 @@ public class CardItem : ScriptableObject
     {
         return displayName;
     }
-    public ItemType GetItemType()
-    {
-        return itemType;
-    }
-    public GameObject GetPrefabs()
+    public PrefabItem GetPrefabs()
     {
         return prefabs;
     }
 
     public void UseItem()
     {
-        GameObject itemPrefab = GetPrefabs();
-        switch (GetItemType())
-        {
-            case ItemType.Building:
-                if (itemPrefab.TryGetComponent<BuildingItem>(out var buildingItem))
-                {
-                    BuildingManager.instance.ChangeBuildingItem(buildingItem);
-                }
-                break;
-        }
+        prefabs.UseItem();
     }
 }

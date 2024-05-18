@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 4238807097710637450}
   - component: {fileID: 1792940899287093681}
   - component: {fileID: -8470382829740208504}
+  - component: {fileID: -6761508296717979515}
   m_Layer: 9
   m_Name: sollider
   m_TagString: Untagged
@@ -315,3 +316,15 @@ MonoBehaviour:
   attackMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-6761508296717979515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866246944801090825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bec47bfa892aa449bc638883d4fea86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

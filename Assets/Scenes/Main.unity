@@ -746,6 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9488f35b2012c74e889aac9d52361b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <card>k__BackingField: {fileID: 7053196808267972927, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
   cardItems:
   - {fileID: 11400000, guid: 225e87dc8f79b9d42af35819d765df42, type: 2}
   - {fileID: 11400000, guid: 14e2e408063f5234e841b1af9e395fba, type: 2}
@@ -890,8 +891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fb7a7d0305a0d47b7cbe02d57e8711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardReward_ui: {fileID: 353453668}
-  cardStore_ui: {fileID: 1365779108}
+  <cardReward_ui>k__BackingField: {fileID: 353453668}
+  <cardStore_ui>k__BackingField: {fileID: 1365779108}
 --- !u!114 &741926862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527908b30db4a9c45b1aa4d4c4174bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardAmount: 3
 --- !u!1001 &768088185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1951,6 +1953,10 @@ PrefabInstance:
     - target: {fileID: 8200160471130998368, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
       propertyPath: m_Name
       value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200160471130998368, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

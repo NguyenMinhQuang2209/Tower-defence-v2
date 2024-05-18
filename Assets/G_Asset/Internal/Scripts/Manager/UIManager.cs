@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
     private string currentUI = "";
     private List<GameObject> currentList = new();
 
-    public GameObject cardReward_ui;
-    public GameObject cardStore_ui;
+    [field: SerializeField] public GameObject cardReward_ui { get; private set; }
+    [field: SerializeField] public GameObject cardStore_ui { get; private set; }
 
     private void Awake()
     {
@@ -64,5 +64,11 @@ public class UIManager : MonoBehaviour
         {
             currentList[i].SetActive(v);
         }
+    }
+    public void CloseUI()
+    {
+        InactiveList();
+        currentUI = "";
+        currentList = new();
     }
 }

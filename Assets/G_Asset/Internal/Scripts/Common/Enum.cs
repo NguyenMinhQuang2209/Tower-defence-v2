@@ -3,10 +3,6 @@ public enum WinningType
     Time,
     Day
 }
-public enum ItemType
-{
-    Building,
-}
 public enum ItemName
 {
     Foundation,

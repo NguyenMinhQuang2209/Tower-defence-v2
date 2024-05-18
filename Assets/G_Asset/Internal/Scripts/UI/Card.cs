@@ -11,10 +11,12 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private Button useBtn;
+    [SerializeField] private float deactiveSize = 0.4f;
+    [SerializeField] private float activeSize = 1f;
+    [SerializeField] private float hoverSize = 1.2f;
     private CardItem cardItem = null;
     private void Start()
     {
-        transform.DOScale(1f, 0.8f);
         useBtn.onClick.AddListener(() =>
         {
             UseCard();
@@ -38,11 +40,16 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOScale(1.1f, 0.4f);
+        transform.DOScale(hoverSize, 0.4f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(1f, 0.4f);
+        transform.DOScale(activeSize, 0.4f);
+    }
+    private void OnEnable()
+    {
+        transform.localScale = new(deactiveSize, deactiveSize, deactiveSize);
+        transform.DOScale(activeSize, 0.8f);
     }
 }

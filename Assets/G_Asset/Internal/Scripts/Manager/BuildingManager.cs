@@ -14,9 +14,6 @@ public class BuildingManager : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Vector3 rootSize = new();
     private BoxCollider2D buildingCollider = null;
-
-    public BuildingItem test;
-    public BuildingItem foundation;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -67,15 +64,6 @@ public class BuildingManager : MonoBehaviour
                 Color color = buildingItem.CanBuilding() ? Color.green : Color.red;
                 spriteRender.color = color;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeBuildingItem(test);
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            ChangeBuildingItem(foundation);
         }
         if (Input.GetMouseButtonDown(1))
         {

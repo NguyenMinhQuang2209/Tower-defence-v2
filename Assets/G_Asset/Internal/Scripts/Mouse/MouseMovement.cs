@@ -48,11 +48,11 @@ public class MouseMovement : MonoBehaviour
     }
     private void MouseMove()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(2))
         {
             dragPos = mCamera.ScreenToWorldPoint(Input.mousePosition);
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(2))
         {
             Vector3 differ = dragPos - mCamera.ScreenToWorldPoint(Input.mousePosition);
             differ.x *= mouseSensitivity;

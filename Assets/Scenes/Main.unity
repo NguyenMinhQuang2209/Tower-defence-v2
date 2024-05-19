@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 612031821}
   - component: {fileID: 612031823}
   - component: {fileID: 612031825}
+  - component: {fileID: 612031827}
   - component: {fileID: 612031822}
   - component: {fileID: 612031824}
   - component: {fileID: 612031826}
@@ -750,6 +751,18 @@ MonoBehaviour:
   cardItems:
   - {fileID: 11400000, guid: 225e87dc8f79b9d42af35819d765df42, type: 2}
   - {fileID: 11400000, guid: 14e2e408063f5234e841b1af9e395fba, type: 2}
+--- !u!114 &612031827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612031820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1072b766a16f1ac42bb12c462f404a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <cardReward_ui>k__BackingField: {fileID: 353453668}
   <cardStore_ui>k__BackingField: {fileID: 1365779108}
+  <cardStore_storeUI>k__BackingField: {fileID: 1686402728}
 --- !u!114 &741926862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,108 +920,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardAmount: 3
---- !u!1001 &768088185
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1686402728}
-    m_Modifications:
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200160471130998368, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-      propertyPath: m_Name
-      value: Card
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
---- !u!224 &776473971 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7972880673084065738, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
-  m_PrefabInstance: {fileID: 768088185}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &946461989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,8 +1589,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 776473971}
+  m_Children: []
   m_Father: {fileID: 4411350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}

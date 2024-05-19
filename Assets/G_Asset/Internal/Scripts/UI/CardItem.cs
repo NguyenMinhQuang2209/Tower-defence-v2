@@ -27,8 +27,8 @@ public class CardItem : ScriptableObject
         return prefabs;
     }
 
-    public void UseItem()
+    public void UseItem(bool v)
     {
-        prefabs.UseItem();
+        prefabs.UseItem(this, v);
     }
 }

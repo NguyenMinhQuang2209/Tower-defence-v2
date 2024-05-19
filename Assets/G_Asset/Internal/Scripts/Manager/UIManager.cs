@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [field: SerializeField] public GameObject cardReward_ui { get; private set; }
     [field: SerializeField] public GameObject cardStore_ui { get; private set; }
+    [field: SerializeField] public Transform cardStore_storeUI { get; private set; }
 
     private void Awake()
     {

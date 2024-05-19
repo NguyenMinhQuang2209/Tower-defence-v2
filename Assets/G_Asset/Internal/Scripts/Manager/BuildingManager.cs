@@ -89,7 +89,7 @@ public class BuildingManager : MonoBehaviour
             buildingItem = null;
             spriteRender = null;
             buildingCollider = null;
-            ChangeBuildingItem(prefabBuildingItem);
+            ChangeBuildingItem(null);
         }
     }
     public Vector2Int GetIndexPosition(Vector2 start, float offset)

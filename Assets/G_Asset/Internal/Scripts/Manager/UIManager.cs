@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
         cardReward_ui.SetActive(false);
         cardStore_ui.SetActive(false);
     }
+
     public void ChangeUI(string newUI, List<GameObject> list)
     {
         if (currentUI == newUI)

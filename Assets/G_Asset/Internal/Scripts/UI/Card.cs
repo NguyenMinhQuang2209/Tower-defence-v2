@@ -19,8 +19,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private int currentQuantity = 0;
     private CardItem cardItem = null;
     private bool isChooseCard = false;
+    bool canInteract = false;
     private void Start()
     {
+        canInteract = false;
         useBtn.onClick.AddListener(() =>
         {
             UseCard();
@@ -63,16 +65,33 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!canInteract)
+        {
+            return;
+        }
         transform.DOScale(hoverSize, 0.4f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!canInteract)
+        {
+            return;
+        }
         transform.DOScale(activeSize, 0.4f);
     }
     private void OnEnable()
     {
         transform.localScale = new(deactiveSize, deactiveSize, deactiveSize);
         transform.DOScale(activeSize, 0.8f);
+        Invoke(nameof(ChangeCanInteractStatus), 1f);
+    }
+    private void OnDisable()
+    {
+        canInteract = false;
+    }
+    private void ChangeCanInteractStatus()
+    {
+        canInteract = true;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,23 @@ public class BuildingManager : MonoBehaviour
         }
         instance = this;
     }
+    private void OnEnable()
+    {
+        InputManager.leftMouseClickAction += BuildItemEvent;
+        InputManager.rightMouseClickAction += CancelBuildItemEvent;
+    }
+    private void OnDisable()
+    {
+
+        InputManager.leftMouseClickAction -= BuildItemEvent;
+        InputManager.rightMouseClickAction -= CancelBuildItemEvent;
+    }
+
+    private void CancelBuildItemEvent()
+    {
+        ChangeBuildingItem(null);
+    }
+
     public void ChangeBuildingItem(BuildingItem newBuildingItem)
     {
         if (buildingItem != null)
@@ -65,10 +83,10 @@ public class BuildingManager : MonoBehaviour
                 spriteRender.color = color;
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            BuildItem();
-        }
+    }
+    private void BuildItemEvent()
+    {
+        BuildItem();
     }
     public void BuildItem()
     {

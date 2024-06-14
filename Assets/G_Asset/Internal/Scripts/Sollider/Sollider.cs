@@ -7,6 +7,7 @@ public class Sollider : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private Transform sizeObject;
     [SerializeField] private LayerMask attackMask;
+    [SerializeField] private Transform weaponWrap;
     private Transform target = null;
     private void Start()
     {
@@ -45,8 +46,14 @@ public class Sollider : MonoBehaviour
     }
     public void AttackTargetObject()
     {
-        float xAxis = target.position.x - transform.position.x;
-        transform.rotation = Quaternion.Euler(new(0f, xAxis > 0 ? 0f : 180f, 0f));
+        Vector3 targetPos = target.position - transform.position;
+
+        float angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg;
+        bool direction = targetPos.x > 0 ? true : false;
+
+        weaponWrap.rotation = Quaternion.Euler(new(0f, direction ? 0f : 180f, direction ? angle : 180 - angle));
+
+        transform.rotation = Quaternion.Euler(new(0f, targetPos.x > 0 ? 0f : 180f, 0f));
         float distance = Vector2.Distance(transform.position, target.position);
         if (distance >= attackRange)
         {

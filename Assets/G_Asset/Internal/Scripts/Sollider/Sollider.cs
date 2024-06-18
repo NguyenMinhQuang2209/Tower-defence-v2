@@ -9,6 +9,7 @@ public class Sollider : MonoBehaviour
     [SerializeField] private LayerMask attackMask;
     [SerializeField] private Transform weaponWrap;
     private Transform target = null;
+    private Weapon currentWeapon;
     private void Start()
     {
         sizeObject.transform.localScale = new(attackRange * 2f, attackRange * 2f, 0f);
@@ -59,6 +60,25 @@ public class Sollider : MonoBehaviour
         {
             target = null;
         }
+    }
+    public void EquipmentWeapon(Weapon weapon, bool isPrefab = false)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon);
+        }
+        if (isPrefab)
+        {
+            currentWeapon = Instantiate(weapon, weaponWrap.transform);
+        }
+        else
+        {
+            weapon.transform.SetParent(weaponWrap);
+            currentWeapon = weapon;
+        }
+        currentWeapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localRotation = Quaternion.identity;
+        currentWeapon.WeaponInit();
     }
     public void HideAttackSize()
     {

@@ -19,6 +19,10 @@ public class PrefabPreferenceManager : MonoBehaviour
         }
         instance = this;
     }
+    public void SetListCardItem(List<CardItem> list)
+    {
+        cardItems = new(list);
+    }
     public CardItem GetCardItem(ItemName itemName)
     {
         if (!cardDictionary.ContainsKey(itemName))

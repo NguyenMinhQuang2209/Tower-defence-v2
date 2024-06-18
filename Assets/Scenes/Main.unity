@@ -751,6 +751,7 @@ MonoBehaviour:
   <card>k__BackingField: {fileID: 7053196808267972927, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
   cardItems:
   - {fileID: 11400000, guid: 225e87dc8f79b9d42af35819d765df42, type: 2}
+  - {fileID: 11400000, guid: 7c5232c8b96996c4a86547ca05a501d9, type: 2}
   - {fileID: 11400000, guid: 14e2e408063f5234e841b1af9e395fba, type: 2}
 --- !u!114 &612031827
 MonoBehaviour:

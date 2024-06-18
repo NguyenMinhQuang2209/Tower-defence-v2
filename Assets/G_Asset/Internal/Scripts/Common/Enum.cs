@@ -9,6 +9,13 @@ public enum ItemName
     Sollider_0,
     Sollider_1,
     Sollider_2,
+    Shortgun_1,
+    Shortgun_2,
+    Rifle,
+    Bullet,
+    Shovel,
+    Pole,
+    Sickle
 }
 public enum EnemyName
 {

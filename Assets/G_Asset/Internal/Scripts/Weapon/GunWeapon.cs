@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GunWeapon : Weapon
 {
-    public override void WeaponInit()
+    public override void WeaponInit(float attackRange)
     {
-        base.WeaponInit();
+        base.WeaponInit(attackRange);
     }
 }

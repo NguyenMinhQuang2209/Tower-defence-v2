@@ -693,6 +693,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44dfd5216f88c3848a7ab3cbb35bd52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesMask:
+    serializedVersion: 2
+    m_Bits: 64
   maps:
   - {fileID: 11400000, guid: ea40fd8f32c5cd0449940178e9222ff7, type: 2}
   - {fileID: 11400000, guid: 0cc0ccce82c319346b869af78325f685, type: 2}

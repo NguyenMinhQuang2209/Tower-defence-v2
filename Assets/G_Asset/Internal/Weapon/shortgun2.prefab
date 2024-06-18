@@ -226,6 +226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820e8408a8916c947ab88f3e08c42aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 1489700525105603706, guid: dda8f54df66a1c543a70e413efe1a35d, type: 3}
+  shootPos: {fileID: 1663589175693510472}
+  damage: 1
+  speed: 1
+  timeBwtAttack: 2
+  attackRange: 10
 --- !u!114 &2018792102668252234
 MonoBehaviour:
   m_ObjectHideFlags: 0

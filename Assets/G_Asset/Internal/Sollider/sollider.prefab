@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2aa026603b1dd40a6484277e877b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.5
+  attackRange: 1
   sizeObject: {fileID: 2600859305746203580}
   attackMask:
     serializedVersion: 2

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Sollider : MonoBehaviour
@@ -20,6 +21,10 @@ public class Sollider : MonoBehaviour
         if (target == null)
         {
             ScanTargetObject();
+            if (currentWeapon != null)
+            {
+                currentWeapon.ResetAttack();
+            }
         }
         else
         {
@@ -48,17 +53,21 @@ public class Sollider : MonoBehaviour
     public void AttackTargetObject()
     {
         Vector3 targetPos = target.position - transform.position;
-
         float angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg;
         bool direction = targetPos.x > 0 ? true : false;
-
         weaponWrap.rotation = Quaternion.Euler(new(0f, direction ? 0f : 180f, direction ? angle : 180 - angle));
-
         transform.rotation = Quaternion.Euler(new(0f, targetPos.x > 0 ? 0f : 180f, 0f));
         float distance = Vector2.Distance(transform.position, target.position);
         if (distance >= attackRange)
         {
             target = null;
+        }
+        else
+        {
+            if (currentWeapon != null)
+            {
+                currentWeapon.Attack(target.position);
+            }
         }
     }
     public void EquipmentWeapon(Weapon weapon, bool isPrefab = false)
@@ -78,7 +87,7 @@ public class Sollider : MonoBehaviour
         }
         currentWeapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
-        currentWeapon.WeaponInit();
+        currentWeapon.WeaponInit(attackRange);
     }
     public void HideAttackSize()
     {

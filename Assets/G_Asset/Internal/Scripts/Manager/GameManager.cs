@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField] private LayerMask enemiesMask;
     [SerializeField] private List<MapScriptableObject> maps = new();
     [SerializeField] private int currentMap = 0;
     private void Awake()
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+    public LayerMask GetEnemyMask()
+    {
+        return enemiesMask;
     }
     public List<Vector2> FindPaths(Vector2 start, Vector2 end)
     {

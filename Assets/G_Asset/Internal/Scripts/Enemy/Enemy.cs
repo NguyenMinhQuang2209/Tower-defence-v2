@@ -112,4 +112,8 @@ public abstract class Enemy : Health
     {
         MapGenerator.reloadMapAction -= ReloadMapEvent;
     }
+    public override void Dealth()
+    {
+        Destroy(gameObject);
+    }
 }

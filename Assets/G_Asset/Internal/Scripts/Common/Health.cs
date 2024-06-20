@@ -12,6 +12,7 @@ public abstract class Health : MonoBehaviour
     public void HealthInit()
     {
         currentHealth = GetMaxHealth();
+        Init();
     }
     ///<summary>
     /// Adding default health value
@@ -19,6 +20,12 @@ public abstract class Health : MonoBehaviour
     public void HealthInit(float health)
     {
         currentHealth = Mathf.Min(health, GetMaxHealth());
+        Init();
+    }
+    public void Init()
+    {
+        isDealth = false;
+        immortal = false;
     }
     public float GetMaxHealth()
     {
@@ -53,6 +60,7 @@ public abstract class Health : MonoBehaviour
             return;
         }
         currentHealth = Mathf.Max(currentHealth - damage, 0f);
+        ShowDamageTxt(damage);
         if (currentHealth == 0f)
         {
             isDealth = true;
@@ -73,5 +81,9 @@ public abstract class Health : MonoBehaviour
     public virtual void Dealth()
     {
 
+    }
+    public virtual void ShowDamageTxt(float damage)
+    {
+        TxtShowManager.instance.ShowTxtDamage("-" + damage.ToString(), transform.position);
     }
 }

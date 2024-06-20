@@ -10,6 +10,10 @@ public class EnemyChaseTarget : Enemy
     }
     private void Update()
     {
+        if (isDealth)
+        {
+            return;
+        }
         Movement();
     }
     public override void Attack()

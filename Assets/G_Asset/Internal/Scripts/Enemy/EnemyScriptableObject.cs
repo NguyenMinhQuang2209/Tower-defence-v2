@@ -11,4 +11,5 @@ public class EnemyScriptableObject : ScriptableObject
     public float enemyDamage;
     public float timeBwtAttack;
     public float stopDistance;
+    public Vector2Int coin = new();
 }

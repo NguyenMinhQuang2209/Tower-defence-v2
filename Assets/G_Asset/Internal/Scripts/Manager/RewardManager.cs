@@ -16,27 +16,19 @@ public class RewardManager : MonoBehaviour
         }
         instance = this;
     }
-    private void Start()
-    {
-        ReloadRewardCard();
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            InteractWithRewardUI();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadRewardCard();
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
             InteractWithStoreCardUI();
         }
     }
-    private void InteractWithRewardUI()
+    public void InteractWithRewardUI(bool needReload = true)
     {
+        if (needReload)
+        {
+            ReloadRewardCard();
+        }
         GameObject rewardUI = UIManager.instance.cardReward_ui;
         UIManager.instance.ChangeUI("Reward", new() { rewardUI });
     }

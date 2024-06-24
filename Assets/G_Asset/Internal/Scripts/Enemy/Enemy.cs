@@ -14,6 +14,7 @@ public abstract class Enemy : Health
     protected bool isHasPath;
     protected Animator animator;
     protected EnemyName enemyName;
+    protected int currentCoin = 0;
     public void EnemyInit()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,6 +22,11 @@ public abstract class Enemy : Health
         maxHealth = enemyDefault.maxHealth;
         HealthInit();
         FindPath();
+        int vX = enemyDefault.coin.x > 0 ? enemyDefault.coin.x : 0;
+        int vY = enemyDefault.coin.y > 0 ? enemyDefault.coin.y : 0;
+        int min = vX > vY ? vX : vY;
+        int max = vX == min ? vX : vY;
+        currentCoin = UnityEngine.Random.Range(min, max);
     }
     public void Movement()
     {
@@ -114,6 +120,10 @@ public abstract class Enemy : Health
     }
     public override void Dealth()
     {
+        if (CoinManager.instance != null)
+        {
+            CoinManager.instance.AddCoin(currentCoin);
+        }
         Destroy(gameObject);
     }
 }

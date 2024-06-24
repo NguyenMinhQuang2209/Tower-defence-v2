@@ -18,3 +18,4 @@ MonoBehaviour:
   enemyDamage: 1
   timeBwtAttack: 1
   stopDistance: 0.01
+  coin: {x: 5, y: 10}

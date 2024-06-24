@@ -16,8 +16,8 @@ public class BuildingPrefabItem : PrefabItem
             else
             {
                 BuildingManager.instance.ChangeBuildingItem(buildingItem);
-                UIManager.instance.CloseUI();
             }
+            UIManager.instance.CloseUI();
         }
     }
     public override void UseItem(bool v)

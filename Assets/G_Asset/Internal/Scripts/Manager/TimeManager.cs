@@ -54,4 +54,12 @@ public class TimeManager : MonoBehaviour
     {
         isStartGame = true;
     }
+    public int GetCurrentDay()
+    {
+        return currentDay;
+    }
+    public float GetCurrentTime()
+    {
+        return currentTime;
+    }
 }

@@ -40,8 +40,15 @@ public class PrefabPreferenceManager : MonoBehaviour
         List<CardItem> cards = new();
         for (int i = 0; i < amount; i++)
         {
-            int pos = Random.Range(0, cardItems.Count);
-            cards.Add(cardItems[pos]);
+            int pos = Random.Range(-1, cardItems.Count);
+            if (pos != -1)
+            {
+                cards.Add(cardItems[pos]);
+            }
+            else
+            {
+                cards.Add(null);
+            }
         }
         return cards;
     }

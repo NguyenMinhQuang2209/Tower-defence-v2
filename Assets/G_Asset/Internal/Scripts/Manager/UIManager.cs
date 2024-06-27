@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     private List<GameObject> currentList = new();
 
     [field: SerializeField] public GameObject cardReward_ui { get; private set; }
+    [field: SerializeField] public GameObject cardReward_wrap { get; private set; }
     [field: SerializeField] public GameObject cardStore_ui { get; private set; }
     [field: SerializeField] public Transform cardStore_storeUI { get; private set; }
 
@@ -24,7 +25,7 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        cardReward_ui.SetActive(false);
+        cardReward_wrap.SetActive(false);
         cardStore_ui.SetActive(false);
     }
 

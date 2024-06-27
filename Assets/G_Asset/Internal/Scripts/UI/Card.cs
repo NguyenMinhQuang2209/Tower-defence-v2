@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +31,22 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void CardInit(CardItem item, int quantity, bool isChooseCard)
     {
         cardItem = item;
+        if (cardItem == null)
+        {
+            itemImage.gameObject.SetActive(false);
+            itemNameTxt.text = "(Thẻ trống)";
+            itemQuantityTxt.gameObject.SetActive(false);
+            useBtn.gameObject.SetActive(false);
+            btn_Txt.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            itemImage.gameObject.SetActive(true);
+            itemQuantityTxt.gameObject.SetActive(true);
+            useBtn.gameObject.SetActive(true);
+            btn_Txt.gameObject.SetActive(true);
+        }
         this.isChooseCard = isChooseCard;
         currentQuantity = quantity;
         string cardBtnTxt = LanguageManager.instance.GetCardBtn(isChooseCard);

@@ -22,6 +22,11 @@ public class RewardManager : MonoBehaviour
         {
             InteractWithStoreCardUI();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            InteractWithRewardUI();
+        }
     }
     public void InteractWithRewardUI(bool needReload = true)
     {
@@ -29,7 +34,7 @@ public class RewardManager : MonoBehaviour
         {
             ReloadRewardCard();
         }
-        GameObject rewardUI = UIManager.instance.cardReward_ui;
+        GameObject rewardUI = UIManager.instance.cardReward_wrap;
         UIManager.instance.ChangeUI("Reward", new() { rewardUI });
     }
     public void InteractWithStoreCardUI()
@@ -37,7 +42,7 @@ public class RewardManager : MonoBehaviour
         GameObject cardStoreUI = UIManager.instance.cardStore_ui;
         UIManager.instance.ChangeUI("StoreCard", new() { cardStoreUI });
     }
-    private void ReloadRewardCard()
+    public void ReloadRewardCard()
     {
         Transform rewardUI = UIManager.instance.cardReward_ui.transform;
         Card card_ui = PrefabPreferenceManager.instance.card;

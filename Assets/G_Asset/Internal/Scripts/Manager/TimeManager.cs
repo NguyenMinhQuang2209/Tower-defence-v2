@@ -38,7 +38,6 @@ public class TimeManager : MonoBehaviour
         {
             currentTime = 0f;
             currentDay += 1;
-            RewardManager.instance.InteractWithRewardUI();
         }
         float showTime = Mathf.Round(currentTime);
         StringBuilder timeShow = new();

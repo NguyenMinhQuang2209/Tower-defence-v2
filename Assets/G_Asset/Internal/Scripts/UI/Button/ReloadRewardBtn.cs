@@ -29,7 +29,7 @@ public class ReloadRewardBtn : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void HandleReloadReward()
     {
-        RewardManager.instance.ReloadRewardCard();
+        RewardManager.instance.ReloadRewardCard(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)

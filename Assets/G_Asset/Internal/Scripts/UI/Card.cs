@@ -8,49 +8,70 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private Sequence mySequence;
     [SerializeField] private Image itemImage;
+    [SerializeField] private Image cartImage;
     [SerializeField] private TextMeshProUGUI itemNameTxt;
     [SerializeField] private TextMeshProUGUI itemQuantityTxt;
-    [SerializeField] private Button useBtn;
-    [SerializeField] private TextMeshProUGUI btn_Txt;
+    [SerializeField] private Button clickBtn;
     [SerializeField] private float deactiveSize = 0.4f;
     [SerializeField] private float activeSize = 1f;
     [SerializeField] private float hoverSize = 1.2f;
+
+
+    [Space(5)]
+    [Header("The side of card")]
+    [SerializeField] private Sprite downSide;
+    [SerializeField] private Sprite upSide;
     private int currentQuantity = 0;
     private CardItem cardItem = null;
     private bool isChooseCard = false;
+    private bool isFlip = false;
     bool canInteract = false;
+    private bool canChoose = false;
     private void Start()
     {
         canInteract = false;
-        useBtn.onClick.AddListener(() =>
+        if (clickBtn == null)
+        {
+            clickBtn = gameObject.AddComponent<Button>();
+        }
+        clickBtn.onClick.AddListener(() =>
         {
             UseCard();
         });
     }
-    public void CardInit(CardItem item, int quantity, bool isChooseCard)
+    public void CardInit(CardItem item, int quantity, bool isChooseCard, bool isFlip = false)
     {
         cardItem = item;
-        if (cardItem == null)
+        this.isFlip = isFlip;
+        canChoose = !this.isFlip;
+        cartImage.sprite = isFlip ? downSide : upSide;
+        if (this.isFlip)
         {
+            itemNameTxt.gameObject.SetActive(false);
             itemImage.gameObject.SetActive(false);
-            itemNameTxt.text = "(Thẻ trống)";
             itemQuantityTxt.gameObject.SetActive(false);
-            useBtn.gameObject.SetActive(false);
-            btn_Txt.gameObject.SetActive(false);
-            return;
         }
         else
         {
-            itemImage.gameObject.SetActive(true);
-            itemQuantityTxt.gameObject.SetActive(true);
-            useBtn.gameObject.SetActive(true);
-            btn_Txt.gameObject.SetActive(true);
+            itemNameTxt.gameObject.SetActive(true);
+            if (cardItem == null)
+            {
+                itemImage.gameObject.SetActive(false);
+                itemQuantityTxt.gameObject.SetActive(false);
+                itemNameTxt.text = "(Thẻ trống)";
+                return;
+            }
+            else
+            {
+                itemNameTxt.gameObject.SetActive(true);
+                itemImage.gameObject.SetActive(true);
+                itemQuantityTxt.gameObject.SetActive(true);
+            }
         }
         this.isChooseCard = isChooseCard;
         currentQuantity = quantity;
-        string cardBtnTxt = LanguageManager.instance.GetCardBtn(isChooseCard);
-        btn_Txt.text = cardBtnTxt;
 
         if (cardItem != null)
         {
@@ -63,11 +84,24 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         itemQuantityTxt.text = LanguageManager.instance.quantityTxt + ": " + currentQuantity.ToString();
     }
-    public void UseCard()
+    private void UseCard()
     {
+        if (isFlip)
+        {
+            StartRotation();
+            return;
+        }
+        if (!canChoose)
+        {
+            return;
+        }
         if (cardItem != null)
         {
             cardItem.UseItem(isChooseCard);
+        }
+        else
+        {
+            UIManager.instance.CloseUI();
         }
     }
     public void AddQuantity(int v = 1)
@@ -109,5 +143,26 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void ChangeCanInteractStatus()
     {
         canInteract = true;
+    }
+
+    private void StartRotation()
+    {
+        isFlip = false;
+        Invoke(nameof(ShowData), 0.7f);
+        Invoke(nameof(ShowImageBg), 0.5f);
+        mySequence = DOTween.Sequence();
+        mySequence.Append(transform.DORotate(new Vector3(0, 90, 0), 0.5f));
+        mySequence.Append(transform.DORotate(new Vector3(0, 0, 0), 0.5f));
+    }
+    private void ShowImageBg()
+    {
+        cartImage.sprite = upSide;
+    }
+    private void ShowData()
+    {
+        canChoose = true;
+        itemNameTxt.gameObject.SetActive(true);
+        itemImage.gameObject.SetActive(true);
+        itemQuantityTxt.gameObject.SetActive(true);
     }
 }

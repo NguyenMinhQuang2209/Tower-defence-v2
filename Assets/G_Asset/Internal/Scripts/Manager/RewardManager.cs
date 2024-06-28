@@ -28,11 +28,11 @@ public class RewardManager : MonoBehaviour
             InteractWithRewardUI();
         }
     }
-    public void InteractWithRewardUI(bool needReload = true)
+    public void InteractWithRewardUI(bool needReload = true, bool isFlip = false)
     {
         if (needReload)
         {
-            ReloadRewardCard();
+            ReloadRewardCard(isFlip);
         }
         GameObject rewardUI = UIManager.instance.cardReward_wrap;
         UIManager.instance.ChangeUI("Reward", new() { rewardUI });
@@ -42,7 +42,7 @@ public class RewardManager : MonoBehaviour
         GameObject cardStoreUI = UIManager.instance.cardStore_ui;
         UIManager.instance.ChangeUI("StoreCard", new() { cardStoreUI });
     }
-    public void ReloadRewardCard()
+    public void ReloadRewardCard(bool isFlip = false)
     {
         Transform rewardUI = UIManager.instance.cardReward_ui.transform;
         Card card_ui = PrefabPreferenceManager.instance.card;
@@ -62,7 +62,7 @@ public class RewardManager : MonoBehaviour
 
             if (current != null)
             {
-                current.CardInit(randomCard[i], 1, true);
+                current.CardInit(randomCard[i], 1, true, isFlip);
             }
         }
     }
@@ -80,7 +80,7 @@ public class RewardManager : MonoBehaviour
         else
         {
             currentCard = Instantiate(card_ui, cardStoreUI.transform);
-            currentCard.CardInit(newCardItem, amount, false);
+            currentCard.CardInit(newCardItem, amount, false, false);
         }
         cardsStore[newItemName] = currentCard;
     }

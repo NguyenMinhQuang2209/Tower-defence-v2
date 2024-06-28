@@ -23,6 +23,6 @@ public class LuckyWheelBtn : MonoBehaviour
     }
     private void HandleOpenReward()
     {
-        RewardManager.instance.InteractWithRewardUI();
+        RewardManager.instance.InteractWithRewardUI(true, true);
     }
 }

@@ -496,8 +496,8 @@ MonoBehaviour:
   itemNameTxt: {fileID: 1900212066965589501}
   itemQuantityTxt: {fileID: 5488670870543869682}
   clickBtn: {fileID: 4318770872008142974}
-  deactiveSize: 0.4
+  deactiveSize: 0.6
   activeSize: 1
-  hoverSize: 1.2
+  hoverSize: 1.1
   downSide: {fileID: -1375030558, guid: 0e3f3792fb975fd4cad075c17550853b, type: 3}
   upSide: {fileID: -428082147, guid: 44e1ba98207982041bbb24bff605afa1, type: 3}

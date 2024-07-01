@@ -37,6 +37,11 @@ public class UIManager : MonoBehaviour
             currentUI = "";
             return;
         }
+        if (currentUI == PayMessageExtensions.GetString(PayName.Reward))
+        {
+            LogManager.instance.Log(PayMessageExtensions.GetString(PayMessage.PleaseChooseReward));
+            return;
+        }
         currentUI = newUI;
         InactiveList();
         currentList = new(list);

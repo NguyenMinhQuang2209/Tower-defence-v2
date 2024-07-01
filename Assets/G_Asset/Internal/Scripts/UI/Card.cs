@@ -27,11 +27,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private CardItem cardItem = null;
     private bool isChooseCard = false;
     private bool isFlip = false;
-    bool canInteract = false;
+    private bool canInteract = false;
     private bool canChoose = false;
     private void Start()
     {
-        canInteract = false;
         if (clickBtn == null)
         {
             clickBtn = gameObject.AddComponent<Button>();
@@ -88,7 +87,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (isFlip)
         {
-            StartRotation();
+            if (RewardManager.instance.CanOpenCard())
+            {
+                StartRotation();
+            }
             return;
         }
         if (!canChoose)
@@ -119,6 +121,13 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             return;
         }
+        if (isFlip)
+        {
+            if (RewardManager.instance.IsEnoughCard())
+            {
+                return;
+            }
+        }
         transform.DOScale(hoverSize, 0.4f);
     }
 
@@ -133,8 +142,8 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void OnEnable()
     {
         transform.localScale = new(deactiveSize, deactiveSize, deactiveSize);
-        transform.DOScale(activeSize, 0.8f);
-        Invoke(nameof(ChangeCanInteractStatus), 1f);
+        transform.DOScale(activeSize, 0.5f);
+        Invoke(nameof(ChangeCanInteractStatus), 0.6f);
     }
     private void OnDisable()
     {
@@ -148,7 +157,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void StartRotation()
     {
         isFlip = false;
-        Invoke(nameof(ShowData), 0.7f);
+        Invoke(nameof(ShowData), 0.5f);
         Invoke(nameof(ShowImageBg), 0.5f);
         mySequence = DOTween.Sequence();
         mySequence.Append(transform.DORotate(new Vector3(0, 90, 0), 0.5f));

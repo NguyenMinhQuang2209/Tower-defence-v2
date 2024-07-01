@@ -47,5 +47,9 @@ public class CoinManager : MonoBehaviour
     {
         coinTxt.text = currentCoin.ToString();
     }
+    public int GetCurrentCoin()
+    {
+        return currentCoin;
+    }
 
 }

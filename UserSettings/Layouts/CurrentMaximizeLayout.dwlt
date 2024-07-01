@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 11389
+  controlID: 5277
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 11390
+  controlID: 5278
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 11391
+  controlID: 5279
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -236,9 +236,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 76810000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 12fbffffc88000001e81000044810000
+      m_SelectedIDs: a4800000
+      m_LastClickedID: 32932
+      m_ExpandedIDs: 12fbffff468000004a80000062810000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -658,9 +658,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 795.03625, y: 534.6642, z: -0.56950855}
+    m_Target: {x: 951.265, y: 554.8825, z: -5.668145}
     speed: 2
-    m_Value: {x: 795.03625, y: 534.6642, z: -0.56950855}
+    m_Value: {x: 951.265, y: 554.8825, z: -5.668145}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -710,9 +710,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 147.08916
+    m_Target: 656.9535
     speed: 2
-    m_Value: 147.08916
+    m_Value: 656.9535
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -809,7 +809,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/G_Asset/Internal/UI
+    - Assets/G_Asset/Internal/Scripts/Common
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -817,16 +817,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/G_Asset/Internal/UI
+  - Assets/G_Asset/Internal/Scripts/Common
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\Unity_Project\Editor\PC\Offline\2D\Tower-defence-v2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 303}
-    m_SelectedIDs: 96840000
-    m_LastClickedID: 33942
-    m_ExpandedIDs: 000000004a8400004c840000508400005284000054840000568400005884000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 243}
+    m_SelectedIDs: de840000
+    m_LastClickedID: 34014
+    m_ExpandedIDs: 000000004a8400004c8400004e840000508400005284000054840000568400007684000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -854,7 +854,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004a8400004c840000508400005284000054840000568400005884000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000004a8400004c8400004e8400005084000052840000548400005684000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -879,8 +879,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 76810000
-    m_LastClickedInstanceID: 33142
+    m_SelectedInstanceIDs: a4800000
+    m_LastClickedInstanceID: 32932
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -995,9 +995,9 @@ MonoBehaviour:
     width: 362.19995
     height: 701.8
   m_SerializedDataModeController:
-    m_DataMode: 0
-    m_PreferredDataMode: 0
-    m_SupportedDataModes: 
+    m_DataMode: 3
+    m_PreferredDataMode: 3
+    m_SupportedDataModes: 010000000200000003000000
     isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:

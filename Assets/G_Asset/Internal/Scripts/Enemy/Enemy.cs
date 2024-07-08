@@ -28,6 +28,10 @@ public abstract class Enemy : Health
         int max = vX == min ? vX : vY;
         currentCoin = UnityEngine.Random.Range(min, max);
     }
+    public void SetDefaultEnemy(EnemyScriptableObject newValue)
+    {
+        enemyDefault = newValue;
+    }
     public void Movement()
     {
         if (!isHasPath)

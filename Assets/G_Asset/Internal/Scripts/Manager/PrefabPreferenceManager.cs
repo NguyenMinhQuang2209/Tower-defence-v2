@@ -22,6 +22,7 @@ public class PrefabPreferenceManager : MonoBehaviour
     public void SetListCardItem(List<CardItem> list)
     {
         cardItems = new(list);
+        list?.Clear();
     }
     public CardItem GetCardItem(ItemName itemName)
     {

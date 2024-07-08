@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     {
         return enemiesMask;
     }
+    public void LoadMap(List<MapScriptableObject> mapsList)
+    {
+        maps = new(mapsList);
+        mapsList?.Clear();
+    }
     public List<Vector2> FindPaths(Vector2 start, Vector2 end)
     {
         Vector2Int size = MapGenerator.instance.GetMapSize();

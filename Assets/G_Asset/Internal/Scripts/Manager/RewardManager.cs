@@ -11,8 +11,10 @@ public class RewardManager : MonoBehaviour
     private Dictionary<ItemName, Card> cardsStore = new();
     [SerializeField] private int openAmount = 1;
     private int currentAmount = 0;
-    [SerializeField] private int freeTimer = 0;
+    private int freeTimer = 0;
     private int currentPrice = 1;
+    private float getRewardAt = 1f;
+    int currentDay = 0;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -24,10 +26,25 @@ public class RewardManager : MonoBehaviour
     }
     private void Start()
     {
+        freeTimer = GlobalManager.instance.defaultFreeReward;
+        currentPrice = GlobalManager.instance.defaultFirstRewardPrice;
+        getRewardAt = GlobalManager.instance.defaultGetFreeRewardAt;
+        currentDay = GlobalManager.instance.defaultStartDay - 1;
         UpdatePriceTxt();
     }
     private void Update()
     {
+        float currentTimeWorld = TimeManager.instance.GetCurrentTime();
+        int currentDayWorld = TimeManager.instance.GetCurrentDay();
+        if (currentDay != currentDayWorld)
+        {
+            if (currentTimeWorld >= getRewardAt)
+            {
+                currentDay = currentDayWorld;
+                freeTimer++;
+                UpdatePriceTxt();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             InteractWithStoreCardUI();

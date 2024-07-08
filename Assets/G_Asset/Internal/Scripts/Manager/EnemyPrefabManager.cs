@@ -19,4 +19,9 @@ public class EnemyPrefabManager : MonoBehaviour
     {
         return enemies;
     }
+    public void LoadListEnemy(List<Enemy> enemiesList)
+    {
+        enemies = new(enemiesList);
+        enemiesList?.Clear();
+    }
 }

@@ -19,8 +19,9 @@ public enum ItemName
 }
 public enum EnemyName
 {
-    Enemy1,
-    Enemy2,
-    Enemy3,
-    Enemy4,
+    Enemy_0,
+    Enemy_1,
+    Enemy_2,
+    Enemy_3,
+    Enemy_4,
 }

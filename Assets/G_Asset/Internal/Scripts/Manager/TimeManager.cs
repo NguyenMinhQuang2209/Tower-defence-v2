@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI timeTxt;
     [SerializeField] private TextMeshProUGUI dayTxt;
-    [SerializeField] private float rateTimeSpeed = 1f;
+    private float rateTimeSpeed = 1f;
     float currentTime = 0f;
     int currentDay = 0;
     bool isStartGame = false;
@@ -25,6 +25,8 @@ public class TimeManager : MonoBehaviour
     }
     private void Start()
     {
+        currentDay = GlobalManager.instance.defaultStartDay;
+        rateTimeSpeed = GlobalManager.instance.defaultRateTimeSpeed;
         StartGame();
     }
     private void Update()
@@ -34,7 +36,7 @@ public class TimeManager : MonoBehaviour
             return;
         }
         currentTime = Mathf.Min(currentTime + Time.deltaTime * rateTimeSpeed, 24f * 60f);
-        if (currentTime == 24f * 60f)
+        if (currentTime >= 24f * 60f)
         {
             currentTime = 0f;
             currentDay += 1;

@@ -1160,6 +1160,7 @@ GameObject:
   - component: {fileID: 612031824}
   - component: {fileID: 612031826}
   - component: {fileID: 612031829}
+  - component: {fileID: 612031830}
   m_Layer: 0
   m_Name: ==========Manager_DontDestroy
   m_TagString: Untagged
@@ -1198,9 +1199,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maps:
+  - {fileID: 11400000, guid: efdb40a44588f5d4ba898bd8849109f5, type: 2}
+  - {fileID: 11400000, guid: 33c6fde778704c04e80a1ac9b43d9d76, type: 2}
   - {fileID: 11400000, guid: ea40fd8f32c5cd0449940178e9222ff7, type: 2}
   - {fileID: 11400000, guid: 0cc0ccce82c319346b869af78325f685, type: 2}
   - {fileID: 11400000, guid: 869c528c6c7641d479605ff74a4b983f, type: 2}
+  - {fileID: 11400000, guid: baf4e862d5b80ec458fbda1d65aa4124, type: 2}
   currentMap: 0
 --- !u!114 &612031823
 MonoBehaviour:
@@ -1296,6 +1300,24 @@ MonoBehaviour:
   txtShowPrefab: {fileID: 6735281774439157512, guid: 63469bfd3efa59d408751c98d91f0b9a, type: 3}
   showTime: 3
   floatTime: 0.5
+--- !u!114 &612031830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612031820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87ff261530b167419174589e0dc7382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <defaultFreeReward>k__BackingField: 0
+  <defaultFirstRewardPrice>k__BackingField: 1
+  <rewardPricePlus>k__BackingField: 1
+  <defaultGetFreeRewardAt>k__BackingField: 720
+  <defaultStartDay>k__BackingField: 1
+  <defaultRateTimeSpeed>k__BackingField: 240
 --- !u!1 &614957981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,7 +1884,6 @@ MonoBehaviour:
   priceTxt: {fileID: 1454324224}
   rewardAmount: 3
   openAmount: 1
-  freeTimer: 1
 --- !u!114 &741926863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1877,7 +1898,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeTxt: {fileID: 647142852}
   dayTxt: {fileID: 818989119}
-  rateTimeSpeed: 120
 --- !u!114 &741926864
 MonoBehaviour:
   m_ObjectHideFlags: 0

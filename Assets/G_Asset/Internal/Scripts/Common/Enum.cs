@@ -5,17 +5,20 @@ public enum WinningType
 }
 public enum ItemName
 {
-    Foundation,
+    Foundation_0,
+    Foundation_1,
     Sollider_0,
     Sollider_1,
     Sollider_2,
+    Sollider_3,
     Shortgun_1,
     Shortgun_2,
     Rifle,
     Bullet,
     Shovel,
     Pole,
-    Sickle
+    Sickle,
+    Other
 }
 public enum EnemyName
 {

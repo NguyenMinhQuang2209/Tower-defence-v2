@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8157af0382a2748ad3e842db5bb32b, type: 3}
+  m_Name: Sollider_0
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 69c5c6134d3697444a4c04df644a755f, type: 2}
+  itemName: 2
+  displayName: "L\xEDnh canh"
+  prefabs: {fileID: 902253820657517869, guid: 1ff216ee806a52449bbb444a97902785, type: 3}

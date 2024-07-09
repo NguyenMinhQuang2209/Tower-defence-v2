@@ -10,6 +10,23 @@ public class CardItem : ScriptableObject
     [SerializeField] private ItemName itemName;
     [SerializeField] private string displayName;
     [SerializeField] private PrefabItem prefabs;
+
+    public void SetName(ItemName itemName)
+    {
+        this.itemName = itemName;
+    }
+    public void SetDisplayName(string displayName)
+    {
+        this.displayName = displayName;
+    }
+    public void SetPrefabItem(PrefabItem prefabItem)
+    {
+        this.prefabs = prefabItem;
+    }
+    public void SetImage(Sprite image)
+    {
+        this.image = image;
+    }
     public Sprite GetImage()
     {
         return image;

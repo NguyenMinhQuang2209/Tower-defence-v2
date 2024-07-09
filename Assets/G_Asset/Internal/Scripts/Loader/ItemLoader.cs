@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,13 +10,15 @@ public static class ItemLoader
     [MenuItem("Load/Load and Create All")]
     public static void LoadAll()
     {
+        SaveCardItems();
         SaveEnemyItems();
         SaveMapItems();
+        CreateCardItems();
         LoadMapItems();
         LoadCardItems();
         LoadEnemyItems();
     }
-    [MenuItem("Load/Load CardItems")]
+    [MenuItem("CardItem/Load CardItems")]
     public static void LoadCardItems()
     {
         string folderPath = "Assets/G_Asset/Internal/Card";
@@ -189,6 +192,123 @@ public static class ItemLoader
                 }
             }
         }
+        AssetDatabase.Refresh();
+    }
+    [MenuItem("CardItem/Create Prefab")]
+    public static void SaveCardItems()
+    {
+        string folderFromSavePath = "Assets/G_Asset/Local/CardItem";
+        string folderToSavePath = "Assets/G_Asset/Internal/Item_Prefab";
+        string folderstorePath = "Assets/G_Asset/Internal/Item_Prefab/Store";
+        SaveItems(folderFromSavePath, folderToSavePath, folderstorePath);
+    }
+    private static void SaveItems(string from, string to, string store)
+    {
+        string[] fromGuids = AssetDatabase.FindAssets("t:Folder", new[] { from });
+        foreach (string guid in fromGuids)
+        {
+            string folderPath = AssetDatabase.GUIDToAssetPath(guid);
+            string folderName = new DirectoryInfo(folderPath).Name;
+            string destinationPath = Path.Combine(to, folderName).Replace("\\", "/");
+            GameObject buildingItem = null;
+            string[] buildingItemGuids = AssetDatabase.FindAssets("t:GameObject", new[] { destinationPath });
+            foreach (string itemGuid in buildingItemGuids)
+            {
+                string itemPath = AssetDatabase.GUIDToAssetPath(itemGuid);
+                string itemName = Path.GetFileNameWithoutExtension(itemPath);
+
+                if (itemName.Equals("template"))
+                {
+                    buildingItem = AssetDatabase.LoadAssetAtPath<GameObject>(itemPath);
+                    break;
+                }
+            }
+            if (buildingItem == null)
+            {
+                continue;
+            }
+            string[] fromGuidsTexture2D = AssetDatabase.FindAssets("t:Sprite", new[] { folderPath });
+            foreach (string guidItem in fromGuidsTexture2D)
+            {
+                string folderItemPath = AssetDatabase.GUIDToAssetPath(guidItem);
+                Sprite itemSprite = AssetDatabase.LoadAssetAtPath<Sprite>(folderItemPath);
+                string storePath = $"{store}/{itemSprite.name}.prefab";
+                GameObject existObj = AssetDatabase.LoadAssetAtPath<GameObject>(storePath);
+                if (existObj != null)
+                {
+                    AssetDatabase.DeleteAsset(storePath);
+                }
+
+                GameObject newBuildingItem = GameObject.Instantiate(buildingItem);
+                newBuildingItem.name = itemSprite.name;
+                if (newBuildingItem.TryGetComponent<BuildingItem>(out var buildingObj))
+                {
+                    SpriteRenderer render = buildingObj.GetSpriteRender();
+                    if (render != null)
+                    {
+                        render.sprite = itemSprite;
+                    }
+                }
+                PrefabUtility.SaveAsPrefabAsset(newBuildingItem, storePath);
+                GameObject.DestroyImmediate(newBuildingItem);
+            }
+        }
+        AssetDatabase.Refresh();
+    }
+    [MenuItem("CardItem/Load Card From Prefab")]
+    public static void CreateCardItems()
+    {
+        Dictionary<string, ItemName> itemNameDictionary = new();
+        var enemyEnumList = Enum.GetValues(typeof(ItemName));
+        foreach (ItemName name in enemyEnumList)
+        {
+            string enumName = Enum.GetName(typeof(ItemName), name);
+            itemNameDictionary.Add(enumName, name);
+        }
+
+        string cardStoreFolder = "Assets/G_Asset/Internal/Card";
+        string folderCardPrefabPath = "Assets/G_Asset/Internal/Item_Prefab/Store";
+
+        string[] cardsGuid = AssetDatabase.FindAssets("t:GameObject", new[] { folderCardPrefabPath });
+
+        foreach (string cardGuid in cardsGuid)
+        {
+            string cardPath = AssetDatabase.GUIDToAssetPath(cardGuid);
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(cardPath);
+            if (prefab == null || prefab.GetComponent<BuildingPrefabItem>() == null)
+            {
+                continue;
+            }
+            string[] prefabName = prefab.name.Split("&");
+            if (prefabName.Length != 2)
+            {
+                continue;
+            }
+
+            string storeItemPath = $"{cardStoreFolder}/{prefabName[0]}.asset";
+            CardItem currentCard = AssetDatabase.LoadAssetAtPath<CardItem>(storeItemPath);
+            if (currentCard != null)
+            {
+                AssetDatabase.DeleteAsset(storeItemPath);
+            }
+
+            currentCard = ScriptableObject.CreateInstance<CardItem>();
+            currentCard.name = prefabName[0];
+            currentCard.SetDisplayName(prefabName[1]);
+            currentCard.SetPrefabItem(prefab.GetComponent<PrefabItem>());
+            currentCard.SetImage(prefab.GetComponent<BuildingItem>().GetSpriteRender().sprite);
+            if (itemNameDictionary.ContainsKey(prefabName[0]))
+            {
+                currentCard.SetName(itemNameDictionary[prefabName[0]]);
+            }
+            else
+            {
+                currentCard.SetName(itemNameDictionary["Other"]);
+            }
+
+            AssetDatabase.CreateAsset(currentCard, storeItemPath);
+        }
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,7 @@ public class RewardManager : MonoBehaviour
 {
     public static RewardManager instance;
     [SerializeField] private TextMeshProUGUI priceTxt;
+    private TextMeshProUGUI remainFree_txt;
     [SerializeField] private int rewardAmount = 3;
     private Dictionary<ItemName, Card> cardsStore = new();
     [SerializeField] private int openAmount = 1;
@@ -15,6 +17,8 @@ public class RewardManager : MonoBehaviour
     private int currentPrice = 1;
     private float getRewardAt = 1f;
     int currentDay = 0;
+    private bool isStartGameMode = false;
+    private bool isPlayingMode = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -26,6 +30,7 @@ public class RewardManager : MonoBehaviour
     }
     private void Start()
     {
+        remainFree_txt = UIManager.instance.remainFree_txt;
         freeTimer = GlobalManager.instance.defaultFreeReward;
         currentPrice = GlobalManager.instance.defaultFirstRewardPrice;
         getRewardAt = GlobalManager.instance.defaultGetFreeRewardAt;
@@ -34,6 +39,23 @@ public class RewardManager : MonoBehaviour
     }
     private void Update()
     {
+        if (isStartGameMode)
+        {
+            string currentCursor = UIManager.instance.GetCurrentUI();
+            if (currentCursor != PayMessageExtensions.GetString(PayName.Reward))
+            {
+                InteractWithRewardUI(true, true);
+                if (freeTimer == 0)
+                {
+                    GameManager.instance.StartGame();
+                }
+            }
+            return;
+        }
+        if (!isPlayingMode)
+        {
+            return;
+        }
         float currentTimeWorld = TimeManager.instance.GetCurrentTime();
         int currentDayWorld = TimeManager.instance.GetCurrentDay();
         if (currentDay != currentDayWorld)
@@ -52,9 +74,14 @@ public class RewardManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            InteractWithRewardUI();
+            InteractWithRewardUI(true, true);
         }
     }
+    public void RemainFreeTxt()
+    {
+        remainFree_txt.text = PayMessageExtensions.GetString(PayMessage.FreeRewardRemain) + freeTimer;
+    }
+    [Tooltip("RewardAMount the number card the user can flip")]
     public void InteractWithRewardUI(bool needReload = true, bool isFlip = false, int rewardAmount = 1)
     {
         int price = currentPrice;
@@ -66,7 +93,7 @@ public class RewardManager : MonoBehaviour
         bool isEnough = CoinManager.instance.EnoughAndRemoveCoin(price);
         if (!isEnough)
         {
-            LogManager.instance.Log(PayMessageExtensions.GetString(PayMessage.NotEnoughCoin));
+            LogManager.instance.Log(PayMessageExtensions.GetString(PayErrorMessage.NotEnoughCoin));
             return;
         }
         if (needReload)
@@ -76,6 +103,7 @@ public class RewardManager : MonoBehaviour
         ResetAmount(rewardAmount);
         GameObject rewardUI = UIManager.instance.cardReward_wrap;
         UIManager.instance.ChangeUI(PayMessageExtensions.GetString(PayName.Reward), new() { rewardUI });
+        RemainFreeTxt();
         UpdatePriceTxt();
     }
     public void InteractWithStoreCardUI()
@@ -140,6 +168,28 @@ public class RewardManager : MonoBehaviour
         }
         cardsStore[newItemName] = currentCard;
     }
+    public bool UseCardItem(ItemName? cardName)
+    {
+        if (cardName is ItemName nonNullableCardName)
+        {
+            if (cardsStore.ContainsKey(nonNullableCardName))
+            {
+                Card useCard = cardsStore[nonNullableCardName];
+                int remain = useCard.MinusQuantity();
+                useCard.UpdateQuantityTxt();
+                if (remain == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    Destroy(useCard.gameObject);
+                    cardsStore.Remove(nonNullableCardName);
+                }
+            }
+        }
+        return false;
+    }
     public bool CanOpenCard()
     {
         currentAmount++;
@@ -157,5 +207,19 @@ public class RewardManager : MonoBehaviour
             newTxt = "0";
         }
         priceTxt.text = newTxt;
+    }
+    private void OnEnable()
+    {
+        GameManager.ChangeGameModeEvent += HandleStartGameMode;
+    }
+    private void OnDisable()
+    {
+        GameManager.ChangeGameModeEvent -= HandleStartGameMode;
+    }
+
+    private void HandleStartGameMode(GameManager.GameMode mode)
+    {
+        isPlayingMode = GameManager.instance.IsPlayingMode(mode);
+        isStartGameMode = GameManager.instance.IsStartMode(mode);
     }
 }

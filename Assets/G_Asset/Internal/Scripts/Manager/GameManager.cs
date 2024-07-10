@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private LayerMask enemiesMask;
     [SerializeField] private List<MapScriptableObject> maps = new();
     [SerializeField] private int currentMap = 0;
+    [SerializeField] private GameMode gameMode;
+
+    public static Action<GameMode> ChangeGameModeEvent;
+    public enum GameMode
+    {
+        Start,
+        Play,
+        Other
+    }
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -18,9 +28,26 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    public LayerMask GetEnemyMask()
+    private void Start()
     {
-        return enemiesMask;
+        ChangeGameModeEvent?.Invoke(gameMode);
+    }
+    public void ChangeGameMode(GameMode newMode)
+    {
+        gameMode = newMode;
+        ChangeGameModeEvent?.Invoke(gameMode);
+    }
+    public GameMode GetCurrentGameMode()
+    {
+        return gameMode;
+    }
+    public bool IsPlayingMode(GameMode checkMode)
+    {
+        return checkMode == GameMode.Play;
+    }
+    public bool IsStartMode(GameMode mode)
+    {
+        return mode == GameMode.Start;
     }
     public void LoadMap(List<MapScriptableObject> mapsList)
     {
@@ -116,5 +143,9 @@ public class GameManager : MonoBehaviour
     public MapScriptableObject GetCurrentMap()
     {
         return maps[currentMap];
+    }
+    public void StartGame()
+    {
+        ChangeGameMode(GameMode.Play);
     }
 }

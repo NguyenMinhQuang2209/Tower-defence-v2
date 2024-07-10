@@ -12,12 +12,13 @@ public class BuildingPrefabItem : PrefabItem
             if (v)
             {
                 RewardManager.instance.AddStoreCards(item);
+                UIManager.instance.CloseUI();
             }
             else
             {
-                BuildingManager.instance.ChangeBuildingItem(buildingItem);
+                BuildingManager.instance.ChangeBuildingItem(buildingItem, item.GetItemName());
+                UIManager.instance.BuildingItem();
             }
-            UIManager.instance.CloseUI();
         }
     }
     public override void UseItem(bool v)
@@ -25,7 +26,7 @@ public class BuildingPrefabItem : PrefabItem
         if (TryGetComponent<BuildingItem>(out var buildingItem))
         {
             BuildingManager.instance.ChangeBuildingItem(buildingItem);
-            UIManager.instance.CloseUI();
+            UIManager.instance.BuildingItem();
         }
     }
 }

@@ -79,7 +79,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         UpdateQuantityTxt();
     }
-    private void UpdateQuantityTxt()
+    public void UpdateQuantityTxt()
     {
         itemQuantityTxt.text = LanguageManager.instance.quantityTxt + ": " + currentQuantity.ToString();
     }
@@ -110,6 +110,27 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         currentQuantity += v;
         UpdateQuantityTxt();
+    }
+    [Tooltip("Minus directly if this have quantity < v this will the negative number (the result when minus value) and directly change quantity to 0")]
+    public int MinusQuantity(int v = 1, bool minusDirectly = false)
+    {
+        int quan = currentQuantity;
+        if (quan > v)
+        {
+            currentQuantity -= v;
+            return 1;
+        }
+        if (quan == v)
+        {
+            currentQuantity = 0;
+            return 0;
+        }
+        if (minusDirectly)
+        {
+            currentQuantity = 0;
+            return quan - v;
+        }
+        return -v;
     }
     public int GetCurrentQuantity()
     {

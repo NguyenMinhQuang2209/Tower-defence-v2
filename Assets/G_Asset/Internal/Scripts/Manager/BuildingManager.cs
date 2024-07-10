@@ -15,6 +15,7 @@ public class BuildingManager : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Vector3 rootSize = new();
     private BoxCollider2D buildingCollider = null;
+    ItemName? currentItemName = null;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -41,7 +42,7 @@ public class BuildingManager : MonoBehaviour
         ChangeBuildingItem(null);
     }
 
-    public void ChangeBuildingItem(BuildingItem newBuildingItem)
+    public void ChangeBuildingItem(BuildingItem newBuildingItem, ItemName? itemName = null)
     {
         if (buildingItem != null)
         {
@@ -61,10 +62,12 @@ public class BuildingManager : MonoBehaviour
                 rootSize = buildingCollider.size;
                 buildingCollider.size = new(rootSize.x - 0.02f, rootSize.y - 0.02f);
             }
+            currentItemName = itemName;
         }
         else
         {
             buildingItem = null;
+            currentItemName = null;
         }
     }
     private void Update()
@@ -101,13 +104,22 @@ public class BuildingManager : MonoBehaviour
                     return;
                 }
             }
+            bool remain = RewardManager.instance.UseCardItem(currentItemName);
             buildingItem.BuildItemInit();
             buildingCollider.size = rootSize;
             spriteRender.color = Color.white;
             buildingItem = null;
             spriteRender = null;
             buildingCollider = null;
-            ChangeBuildingItem(null);
+            if (remain)
+            {
+                ChangeBuildingItem(prefabBuildingItem, currentItemName);
+            }
+            else
+            {
+                UIManager.instance.CloseUI();
+                ChangeBuildingItem(null);
+            }
         }
     }
     public Vector2Int GetIndexPosition(Vector2 start, float offset)

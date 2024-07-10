@@ -15,4 +15,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 730d086869723d44e812c95128b776e3, type: 2}
   itemName: 7
   displayName: Shortgun 2
-  prefabs: {fileID: 8569855339929642765, guid: 386640bb758974d4e83b2c2d4461c59e, type: 3}
+  prefabs: {fileID: 5979059087249378242, guid: 386640bb758974d4e83b2c2d4461c59e, type: 3}

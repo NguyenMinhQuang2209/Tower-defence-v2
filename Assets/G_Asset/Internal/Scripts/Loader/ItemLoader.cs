@@ -7,10 +7,10 @@ using UnityEngine;
 
 public static class ItemLoader
 {
-    public static bool needDelete = false;
+    public static bool needDelete = true;
     public static int enemylayer = 6;
 
-    [MenuItem("Load/Load All")]
+    [MenuItem("Load/Load and Create All")]
     public static void LoadAll()
     {
         SaveCardItems();

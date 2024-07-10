@@ -12,6 +12,7 @@ public class EnemySpawnManager : MonoBehaviour
     private float currentTimer = 0f;
     private int currentDay = 0;
     int current = 0;
+    private bool isPlayingMode = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -27,6 +28,11 @@ public class EnemySpawnManager : MonoBehaviour
     }
     private void Update()
     {
+        if (!isPlayingMode)
+        {
+            return;
+        }
+
         int tempCurrentDay = TimeManager.instance.GetCurrentDay();
         if (currentDay != tempCurrentDay)
         {
@@ -83,10 +89,12 @@ public class EnemySpawnManager : MonoBehaviour
     private void OnEnable()
     {
         MapGenerator.onGenerateMapDoneAction_enemySpawn += OnGenerateMapDone;
+        GameManager.ChangeGameModeEvent += HandleChangeGameMode;
     }
     private void OnDisable()
     {
         MapGenerator.onGenerateMapDoneAction_enemySpawn -= OnGenerateMapDone;
+        GameManager.ChangeGameModeEvent -= HandleChangeGameMode;
     }
 
     private void OnGenerateMapDone(List<Vector2> list, List<EnemyItemConfig> enemies)
@@ -139,5 +147,10 @@ public class EnemySpawnManager : MonoBehaviour
             current.currentTime = spawnTime;
             currentEnemies[i] = current;
         }
+    }
+
+    private void HandleChangeGameMode(GameManager.GameMode mode)
+    {
+        isPlayingMode = GameManager.instance.IsPlayingMode(mode);
     }
 }

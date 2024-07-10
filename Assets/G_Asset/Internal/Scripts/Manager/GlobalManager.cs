@@ -8,7 +8,7 @@ public class GlobalManager : MonoBehaviour
 
     [field: SerializeField] public int defaultFreeReward { get; private set; } = 1;
 
-
+    [field: SerializeField] public LayerMask enemiesMask { get; private set; } = 6;
 
     [field: SerializeField] public int defaultFirstRewardPrice { get; private set; } = 1;
     [field: SerializeField] public int rewardPricePlus { get; private set; } = 1;

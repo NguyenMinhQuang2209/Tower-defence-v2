@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour
     [field: SerializeField] public GameObject cardReward_wrap { get; private set; }
     [field: SerializeField] public GameObject cardStore_ui { get; private set; }
     [field: SerializeField] public Transform cardStore_storeUI { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI remainFree_txt { get; private set; }
 
     private void Awake()
     {
@@ -28,6 +30,10 @@ public class UIManager : MonoBehaviour
         cardReward_wrap.SetActive(false);
         cardStore_ui.SetActive(false);
     }
+    public string GetCurrentUI()
+    {
+        return currentUI;
+    }
 
     public void ChangeUI(string newUI, List<GameObject> list)
     {
@@ -39,7 +45,7 @@ public class UIManager : MonoBehaviour
         }
         if (currentUI == PayMessageExtensions.GetString(PayName.Reward))
         {
-            LogManager.instance.Log(PayMessageExtensions.GetString(PayMessage.PleaseChooseReward));
+            LogManager.instance.Log(PayMessageExtensions.GetString(PayErrorMessage.PleaseChooseReward));
             return;
         }
         currentUI = newUI;
@@ -79,5 +85,9 @@ public class UIManager : MonoBehaviour
         InactiveList();
         currentUI = "";
         currentList = new();
+    }
+    public void BuildingItem()
+    {
+        ChangeUI(PayMessageExtensions.GetString(PayName.BuildingItem), new());
     }
 }

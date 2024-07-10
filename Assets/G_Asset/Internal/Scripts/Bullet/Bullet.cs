@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rootPos = transform.position;
-        enemyMask = GameManager.instance.GetEnemyMask();
+        enemyMask = GlobalManager.instance.enemiesMask;
     }
     public void BulletInit(Vector3 dir, float bulletSpeed, float attackRange, float damage)
     {
@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         {
             rb = GetComponent<Rigidbody2D>();
             rootPos = transform.position;
-            enemyMask = GameManager.instance.GetEnemyMask();
+            enemyMask = GlobalManager.instance.enemiesMask;
         }
         Vector2 direction = dir - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

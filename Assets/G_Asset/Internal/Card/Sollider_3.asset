@@ -15,4 +15,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 3b737649d2b067344936dc9470405434, type: 2}
   itemName: 5
   displayName: "L\xEDnh canh"
-  prefabs: {fileID: 4121825824460010724, guid: 277fbb5d40c37f3408be47f0f667739c, type: 3}
+  prefabs: {fileID: 914175465789321856, guid: 277fbb5d40c37f3408be47f0f667739c, type: 3}

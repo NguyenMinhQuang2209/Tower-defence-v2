@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +28,7 @@ public class TimeManager : MonoBehaviour
     {
         currentDay = GlobalManager.instance.defaultStartDay;
         rateTimeSpeed = GlobalManager.instance.defaultRateTimeSpeed;
-        StartGame();
+        ShowTimeTxt();
     }
     private void Update()
     {
@@ -41,6 +42,10 @@ public class TimeManager : MonoBehaviour
             currentTime = 0f;
             currentDay += 1;
         }
+        ShowTimeTxt();
+    }
+    private void ShowTimeTxt()
+    {
         float showTime = Mathf.Round(currentTime);
         StringBuilder timeShow = new();
         int minute = (int)(showTime / 60f);
@@ -51,10 +56,6 @@ public class TimeManager : MonoBehaviour
         timeTxt.text = timeShow.ToString();
         dayTxt.text = "Ngày: " + currentDay.ToString();
     }
-    public void StartGame()
-    {
-        isStartGame = true;
-    }
     public int GetCurrentDay()
     {
         return currentDay;
@@ -62,5 +63,18 @@ public class TimeManager : MonoBehaviour
     public float GetCurrentTime()
     {
         return currentTime;
+    }
+    private void OnEnable()
+    {
+        GameManager.ChangeGameModeEvent += HandleChangeGameMode;
+    }
+    private void OnDisable()
+    {
+        GameManager.ChangeGameModeEvent -= HandleChangeGameMode;
+    }
+
+    private void HandleChangeGameMode(GameManager.GameMode mode)
+    {
+        isStartGame = GameManager.instance.IsPlayingMode(mode);
     }
 }

@@ -17,13 +17,13 @@ public class EnemyItemConfig
 {
     public EnemyName name;
     [Tooltip("How many time this enemy be spawned")]
-    public int spawnTime;
+    public int spawnTime = 0;
     [Tooltip("Wait until the next time spawn new enemy, set it < 0 to let it have infinity spawn time")]
-    public float timeBwtSpawn;
+    public float timeBwtSpawn = 2f;
     [Tooltip("Enemy spawn at time minute")]
-    public float spawnAt = -1;
+    public float spawnAt = -1f;
     [Tooltip("Enemy stop spawn at,set it < 0 to let it don't have stop time")]
-    public float stopSpawnAt = -1;
+    public float stopSpawnAt = -1f;
     [Tooltip("Enemy spawn at day")]
     public int spawnAtDay = -1;
     [Tooltip("Enemy stop spawn at day, set it < 0 to let it don't have stop time")]

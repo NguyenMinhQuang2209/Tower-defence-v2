@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 730d086869723d44e812c95128b776e3, type: 2}
   itemName: 7
-  displayName: "Shortgun lo\u1EA1i 2"
-  prefabs: {fileID: 8453743813201586976, guid: 238b1721e39d22646bc8678040aa4790, type: 3}
+  displayName: Shortgun 2
+  prefabs: {fileID: 8569855339929642765, guid: 386640bb758974d4e83b2c2d4461c59e, type: 3}

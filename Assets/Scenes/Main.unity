@@ -1231,7 +1231,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 8450242307559083775, guid: 1e487ace92118b44b8dfffdbd1b255fc, type: 3}
+  - {fileID: 988306221279748487, guid: 4168842f2f1a97e4ab78ffeeff767471, type: 3}
+  - {fileID: 1160733519394362203, guid: ec4c02047f2abf84585e0afa9a38f0a8, type: 3}
+  - {fileID: 2595757549645995239, guid: 6494282ddeea74c499642ac3657aa0f0, type: 3}
+  - {fileID: 6716723275730000176, guid: 7af13b11467bc10479ba6397f7cab01f, type: 3}
+  - {fileID: 356532615480084433, guid: 90377d611c2c9ce4a9584383802adbe0, type: 3}
 --- !u!114 &612031825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,9 +1262,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <card>k__BackingField: {fileID: 7053196808267972927, guid: ad45e705ed22f434d96eaa101f877af4, type: 3}
   cardItems:
-  - {fileID: 11400000, guid: 225e87dc8f79b9d42af35819d765df42, type: 2}
-  - {fileID: 11400000, guid: 7c5232c8b96996c4a86547ca05a501d9, type: 2}
-  - {fileID: 11400000, guid: 14e2e408063f5234e841b1af9e395fba, type: 2}
+  - {fileID: 11400000, guid: 968920f196232a8498385160ca6b32ae, type: 2}
+  - {fileID: 11400000, guid: 8b3544aa45c33b741be123cd468c9df2, type: 2}
+  - {fileID: 11400000, guid: 15a5b4c44b83fcb48aad5355168941be, type: 2}
+  - {fileID: 11400000, guid: 0b827a9b80531e743b97712421b4535e, type: 2}
+  - {fileID: 11400000, guid: 32806530666322242b43700a436db70d, type: 2}
+  - {fileID: 11400000, guid: 79b40e370aa3f654aa2a671d302b7b10, type: 2}
+  - {fileID: 11400000, guid: 7bc741c2ad9123c4e93671cf7cfdf4bc, type: 2}
+  - {fileID: 11400000, guid: af8e341cb02251a4b9972042875f3d8a, type: 2}
+  - {fileID: 11400000, guid: 3c54a1b176595354caa14079753d1bd0, type: 2}
+  - {fileID: 11400000, guid: a92f5bc0ee27b324aa8412edb2f82b87, type: 2}
+  - {fileID: 11400000, guid: 3e317445115626243b56caec2910774c, type: 2}
+  - {fileID: 11400000, guid: 45f0d6112d0cfba4685f8daaa59cbc25, type: 2}
 --- !u!114 &612031827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,7 +1325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87ff261530b167419174589e0dc7382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <defaultFreeReward>k__BackingField: 0
+  <defaultFreeReward>k__BackingField: 10
   <defaultFirstRewardPrice>k__BackingField: 1
   <rewardPricePlus>k__BackingField: 1
   <defaultGetFreeRewardAt>k__BackingField: 720

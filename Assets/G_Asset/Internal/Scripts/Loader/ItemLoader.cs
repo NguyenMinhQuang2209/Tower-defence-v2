@@ -7,7 +7,10 @@ using UnityEngine;
 
 public static class ItemLoader
 {
-    [MenuItem("Load/Load and Create All")]
+    public static bool needDelete = false;
+    public static int enemylayer = 6;
+
+    [MenuItem("Load/Load All")]
     public static void LoadAll()
     {
         SaveCardItems();
@@ -108,6 +111,7 @@ public static class ItemLoader
         }
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+        LoadMapItems();
     }
 
     [MenuItem("Enemy/Create enemy")]
@@ -162,7 +166,7 @@ public static class ItemLoader
 
                 string enemyPath = $"{enemySavePath}/{enemySprite.name}.prefab";
                 GameObject enemyObject = AssetDatabase.LoadAssetAtPath<GameObject>(enemyPath);
-                if (enemyObject != null)
+                if (enemyObject != null && needDelete)
                 {
                     AssetDatabase.DeleteAsset(enemyPath);
                     enemyObject = null;
@@ -170,6 +174,8 @@ public static class ItemLoader
                 if (enemyObject == null)
                 {
                     enemyObject = new(enemySprite.name);
+
+                    enemyObject.layer = enemylayer;
 
                     enemyObject.transform.localScale = new(0.16f, 0.16f, 1f);
                     SpriteRenderer spriteRender = enemyObject.AddComponent<SpriteRenderer>();
@@ -193,6 +199,7 @@ public static class ItemLoader
             }
         }
         AssetDatabase.Refresh();
+        LoadEnemyItems();
     }
     [MenuItem("CardItem/Create Prefab")]
     public static void SaveCardItems()
@@ -200,9 +207,11 @@ public static class ItemLoader
         string folderFromSavePath = "Assets/G_Asset/Local/CardItem";
         string folderToSavePath = "Assets/G_Asset/Internal/Item_Prefab";
         string folderstorePath = "Assets/G_Asset/Internal/Item_Prefab/Store";
-        SaveItems(folderFromSavePath, folderToSavePath, folderstorePath);
+        SaveItems(folderFromSavePath, folderToSavePath, folderstorePath, needDelete);
+        CreateCardItems();
+        LoadCardItems();
     }
-    private static void SaveItems(string from, string to, string store)
+    private static void SaveItems(string from, string to, string store, bool needDelete)
     {
         string[] fromGuids = AssetDatabase.FindAssets("t:Folder", new[] { from });
         foreach (string guid in fromGuids)
@@ -234,23 +243,26 @@ public static class ItemLoader
                 Sprite itemSprite = AssetDatabase.LoadAssetAtPath<Sprite>(folderItemPath);
                 string storePath = $"{store}/{itemSprite.name}.prefab";
                 GameObject existObj = AssetDatabase.LoadAssetAtPath<GameObject>(storePath);
-                if (existObj != null)
+                if (existObj != null && needDelete)
                 {
                     AssetDatabase.DeleteAsset(storePath);
+                    existObj = null;
                 }
-
-                GameObject newBuildingItem = GameObject.Instantiate(buildingItem);
-                newBuildingItem.name = itemSprite.name;
-                if (newBuildingItem.TryGetComponent<BuildingItem>(out var buildingObj))
+                if (existObj == null)
                 {
-                    SpriteRenderer render = buildingObj.GetSpriteRender();
-                    if (render != null)
+                    GameObject newBuildingItem = GameObject.Instantiate(buildingItem);
+                    newBuildingItem.name = itemSprite.name;
+                    if (newBuildingItem.TryGetComponent<BuildingItem>(out var buildingObj))
                     {
-                        render.sprite = itemSprite;
+                        SpriteRenderer render = buildingObj.GetSpriteRender();
+                        if (render != null)
+                        {
+                            render.sprite = itemSprite;
+                        }
                     }
+                    PrefabUtility.SaveAsPrefabAsset(newBuildingItem, storePath);
+                    GameObject.DestroyImmediate(newBuildingItem);
                 }
-                PrefabUtility.SaveAsPrefabAsset(newBuildingItem, storePath);
-                GameObject.DestroyImmediate(newBuildingItem);
             }
         }
         AssetDatabase.Refresh();
@@ -287,28 +299,33 @@ public static class ItemLoader
 
             string storeItemPath = $"{cardStoreFolder}/{prefabName[0]}.asset";
             CardItem currentCard = AssetDatabase.LoadAssetAtPath<CardItem>(storeItemPath);
-            if (currentCard != null)
+            if (currentCard != null && needDelete)
             {
                 AssetDatabase.DeleteAsset(storeItemPath);
+                currentCard = null;
             }
 
-            currentCard = ScriptableObject.CreateInstance<CardItem>();
-            currentCard.name = prefabName[0];
-            currentCard.SetDisplayName(prefabName[1]);
-            currentCard.SetPrefabItem(prefab.GetComponent<PrefabItem>());
-            currentCard.SetImage(prefab.GetComponent<BuildingItem>().GetSpriteRender().sprite);
-            if (itemNameDictionary.ContainsKey(prefabName[0]))
+            if (currentCard == null)
             {
-                currentCard.SetName(itemNameDictionary[prefabName[0]]);
-            }
-            else
-            {
-                currentCard.SetName(itemNameDictionary["Other"]);
-            }
+                currentCard = ScriptableObject.CreateInstance<CardItem>();
+                currentCard.name = prefabName[0];
+                currentCard.SetDisplayName(prefabName[1]);
+                currentCard.SetPrefabItem(prefab.GetComponent<PrefabItem>());
+                currentCard.SetImage(prefab.GetComponent<BuildingItem>().GetSpriteRender().sprite);
+                if (itemNameDictionary.ContainsKey(prefabName[0]))
+                {
+                    currentCard.SetName(itemNameDictionary[prefabName[0]]);
+                }
+                else
+                {
+                    currentCard.SetName(itemNameDictionary["Other"]);
+                }
 
-            AssetDatabase.CreateAsset(currentCard, storeItemPath);
+                AssetDatabase.CreateAsset(currentCard, storeItemPath);
+            }
         }
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+        LoadCardItems();
     }
 }

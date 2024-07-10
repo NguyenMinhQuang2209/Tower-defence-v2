@@ -13,7 +13,6 @@ public abstract class Enemy : Health
     protected Vector2 target;
     protected bool isHasPath;
     protected Animator animator;
-    protected EnemyName enemyName;
     protected int currentCoin = 0;
     public void EnemyInit()
     {
@@ -106,7 +105,7 @@ public abstract class Enemy : Health
     }
     public EnemyName GetEnemyName()
     {
-        return enemyName;
+        return enemyDefault.enemyName;
     }
     private void OnEnable()
     {

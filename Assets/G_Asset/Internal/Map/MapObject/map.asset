@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: map
   m_EditorClassIdentifier: 
   map: {fileID: 2800000, guid: 185dc82d3d8d5c342b8aec7769c2af81, type: 3}
-  enemies: []
+  enemies:
+  - name: 2
+    spawnTime: -1
+    timeBwtSpawn: 2
+    spawnAt: 0
+    stopSpawnAt: -1
+    spawnAtDay: -1
+    stopSpawnAtDay: -1
+    enemy: {fileID: 0}
+    currentAmount: 0
+    currentTime: 0
   winningType: 0
-  winValue: 0
+  winValue: 5000

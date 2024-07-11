@@ -10,9 +10,15 @@ public class Sollider : MonoBehaviour
     [SerializeField] private LayerMask attackMask;
     [SerializeField] private Transform weaponWrap;
     private Transform target = null;
+    private UpgradeLevel upgradeLevel;
     private Weapon currentWeapon;
     private void Start()
     {
+        upgradeLevel = GetComponent<UpgradeLevel>();
+        if (upgradeLevel != null && TryGetComponent<UpgradeItem>(out var upgradeItem))
+        {
+            upgradeLevel.AddUpgradeItem(UpgradeName.Sollider, upgradeItem);
+        }
         sizeObject.transform.localScale = new(attackRange * 2f, attackRange * 2f, 0f);
         ShowAttackSize();
     }
@@ -86,7 +92,11 @@ public class Sollider : MonoBehaviour
             currentWeapon = weapon;
         }
         currentWeapon.transform.localPosition = Vector3.zero;
-        weapon.transform.localRotation = Quaternion.identity;
+        currentWeapon.transform.localRotation = Quaternion.identity;
+        if (currentWeapon.TryGetComponent<UpgradeItem>(out var upgradeWeapon))
+        {
+            upgradeLevel.AddUpgradeItem(UpgradeName.Weapon, upgradeWeapon);
+        }
         currentWeapon.WeaponInit(attackRange);
     }
     public void HideAttackSize()
@@ -96,5 +106,12 @@ public class Sollider : MonoBehaviour
     public void ShowAttackSize()
     {
         sizeObject.gameObject.SetActive(true);
+    }
+    public void ChangeStoreParent(UpgradeItem upgradeParent)
+    {
+        if (upgradeParent != null)
+        {
+            upgradeLevel.AddUpgradeItem(UpgradeName.Foundation, upgradeParent);
+        }
     }
 }

@@ -14,7 +14,9 @@ public class SolliderBuildingItem : BuildingItem
         if (requires.Count > 0)
         {
             Collider2D parent = requires[0];
-            transform.SetParent(parent.gameObject.transform, true);
+            Transform parentTransform = parent.gameObject.transform;
+            transform.SetParent(parentTransform, true);
+            sollider.ChangeStoreParent(parentTransform.GetComponent<UpgradeItem>());
         }
         sollider.HideAttackSize();
         base.BuildItemInit();

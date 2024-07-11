@@ -90,4 +90,8 @@ public class UIManager : MonoBehaviour
     {
         ChangeUI(PayMessageExtensions.GetString(PayName.BuildingItem), new());
     }
+    public void UpgradeItem()
+    {
+
+    }
 }

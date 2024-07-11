@@ -15,4 +15,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: e5c4e9c91134c9142b13333612081b77, type: 2}
   itemName: 8
   displayName: "S\xFAng tr\u01B0\u1EDDng"
-  prefabs: {fileID: 3678842090790756589, guid: 533c41481416a1547b0b5bbce1317f9e, type: 3}
+  prefabs: {fileID: 5908606181930513228, guid: 533c41481416a1547b0b5bbce1317f9e, type: 3}

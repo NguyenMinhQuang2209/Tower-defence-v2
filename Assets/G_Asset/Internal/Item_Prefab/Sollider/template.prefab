@@ -213,7 +213,8 @@ GameObject:
   - component: {fileID: 1792940899287093681}
   - component: {fileID: -8470382829740208504}
   - component: {fileID: -6761508296717979515}
-  - component: {fileID: -4587311184653134386}
+  - component: {fileID: -5450679293040196987}
+  - component: {fileID: 394091197464178010}
   m_Layer: 9
   m_Name: template
   m_TagString: Untagged
@@ -362,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bec47bfa892aa449bc638883d4fea86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4587311184653134386
+--- !u!114 &-5450679293040196987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,3 +375,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed819d2ed47fe241b8bfca5862fe7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &394091197464178010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866246944801090825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2865f4da30415d45b41d167bee1d2c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels: []

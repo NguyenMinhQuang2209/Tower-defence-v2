@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FoundationBuildingItem : BuildingItem
 {
-    public override void BuildItemInit()
+    public override void BuildItemInit(bool isTrigger = false)
     {
-        base.BuildItemInit();
+        base.BuildItemInit(isTrigger);
     }
 }

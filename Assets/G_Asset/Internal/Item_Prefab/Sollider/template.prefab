@@ -387,4 +387,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2865f4da30415d45b41d167bee1d2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: []
+  defaultLevel:
+    health: 30
+    damage: 1
+    speed: 1
+    range: 1
+    numberOfBullet: 1
+  levels:
+  - price: 20
+    levelPlus:
+    - plusValue: 20
+      plusName: 0
+    - plusValue: 15
+      plusName: 0
+    - plusValue: 15
+      plusName: 0
+  - price: 30
+    levelPlus:
+    - plusValue: 20
+      plusName: 0
+    - plusValue: 15
+      plusName: 1
+    - plusValue: 15
+      plusName: 2
+  - price: 40
+    levelPlus:
+    - plusValue: 20
+      plusName: 0
+    - plusValue: 15
+      plusName: 0
+    - plusValue: 15
+      plusName: 0

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class UpgradeLevel : MonoBehaviour
 {
-    private UpgradeItem upgradeFoundation;
-    private UpgradeItem upgradeSollider;
-    private UpgradeItem upgradeWeapon;
+    [SerializeField] private UpgradeItem upgradeFoundation;
+    [SerializeField] private UpgradeItem upgradeSollider;
+    [SerializeField] private UpgradeItem upgradeWeapon;
     private void OnMouseDown()
     {
         string currentCursor = UIManager.instance.GetCurrentUI();

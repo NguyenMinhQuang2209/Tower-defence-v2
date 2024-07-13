@@ -206,3 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2865f4da30415d45b41d167bee1d2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultLevel:
+    health: 100
+    damage: 0
+    speed: 0
+    range: 0
+    numberOfBullet: 0
+  levels: []

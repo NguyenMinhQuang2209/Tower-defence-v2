@@ -80,7 +80,7 @@ public class Sollider : MonoBehaviour
     {
         if (currentWeapon != null)
         {
-            Destroy(currentWeapon);
+            Destroy(currentWeapon.gameObject);
         }
         if (isPrefab)
         {

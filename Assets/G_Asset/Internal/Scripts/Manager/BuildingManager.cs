@@ -40,6 +40,7 @@ public class BuildingManager : MonoBehaviour
     private void CancelBuildItemEvent()
     {
         ChangeBuildingItem(null);
+        UIManager.instance.CloseUI();
     }
 
     public void ChangeBuildingItem(BuildingItem newBuildingItem, ItemName? itemName = null)

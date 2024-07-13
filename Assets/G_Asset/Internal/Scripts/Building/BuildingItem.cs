@@ -42,12 +42,12 @@ public abstract class BuildingItem : MonoBehaviour
             colliders.Remove(collision);
         }
     }
-    public virtual void BuildItemInit()
+    public virtual void BuildItemInit(bool isTrigger = true)
     {
         colliders?.Clear();
         requires?.Clear();
         isBuilding = true;
-        GetComponent<Collider2D>().isTrigger = false;
+        GetComponent<Collider2D>().isTrigger = isTrigger;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<BuildingItem>().enabled = false;
     }

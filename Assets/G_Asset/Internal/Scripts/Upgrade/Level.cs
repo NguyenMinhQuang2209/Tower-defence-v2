@@ -41,11 +41,50 @@ public class LevelPlus
         return plusName;
     }
 }
+[System.Serializable]
+public class DefaultLevel
+{
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float damage = 1f;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float range = 1f;
+    [SerializeField] private int numberOfBullet = 1;
+    public float GetHealth()
+    {
+        return health;
+    }
+    public float GetDamage()
+    {
+        return damage;
+    }
+    public float GetSpeed()
+    {
+        return speed;
+    }
+    public float GetRange()
+    {
+        return range;
+    }
+    public int GetNumberOfBullet()
+    {
+        return numberOfBullet;
+    }
+
+    public DefaultLevel(float health, float damage, float speed, float range, int numberOfBullet)
+    {
+        this.health = health;
+        this.damage = damage;
+        this.speed = speed;
+        this.range = range;
+        this.numberOfBullet = numberOfBullet;
+    }
+
+}
 public enum LevelPlusName
 {
     Health,
     Damage,
     Speed,
     Range,
-    NumberOfBullet,
+    NumberOfBullet
 }

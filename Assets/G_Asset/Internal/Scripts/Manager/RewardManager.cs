@@ -122,7 +122,7 @@ public class RewardManager : MonoBehaviour
             child.gameObject.SetActive(false);
         }
         List<CardItem> randomCard = PrefabPreferenceManager.instance.GetCardItemRandomly(rewardAmount);
-        for (int i = 0; i < rewardAmount; i++)
+        for (int i = 0; i < randomCard.Count; i++)
         {
             Card current;
             if (i < remainUICard)

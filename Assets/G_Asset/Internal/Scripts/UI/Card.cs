@@ -46,6 +46,15 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         this.isFlip = isFlip;
         canChoose = !this.isFlip;
         cartImage.sprite = isFlip ? downSide : upSide;
+        this.isChooseCard = isChooseCard;
+        currentQuantity = quantity;
+
+        if (cardItem != null)
+        {
+            itemImage.sprite = cardItem.GetImage();
+            itemNameTxt.text = cardItem.GetItemDisplayName();
+        }
+        UpdateQuantityTxt();
         if (this.isFlip)
         {
             itemNameTxt.gameObject.SetActive(false);
@@ -69,15 +78,6 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 itemQuantityTxt.gameObject.SetActive(true);
             }
         }
-        this.isChooseCard = isChooseCard;
-        currentQuantity = quantity;
-
-        if (cardItem != null)
-        {
-            itemImage.sprite = cardItem.GetImage();
-            itemNameTxt.text = cardItem.GetItemDisplayName();
-        }
-        UpdateQuantityTxt();
     }
     public void UpdateQuantityTxt()
     {

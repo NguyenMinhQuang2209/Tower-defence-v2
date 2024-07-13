@@ -7,7 +7,7 @@ public class WeaponBuildingItem : BuildingItem
     {
         weapon = GetComponent<Weapon>();
     }
-    public override void BuildItemInit()
+    public override void BuildItemInit(bool isTrigger = true)
     {
         if (requires.Count > 0)
         {
@@ -17,10 +17,10 @@ public class WeaponBuildingItem : BuildingItem
                 if (parent.TryGetComponent<Sollider>(out var sollider))
                 {
                     sollider.EquipmentWeapon(weapon);
-                    break;
+                    base.BuildItemInit(isTrigger);
+                    return;
                 }
             }
         }
-        base.BuildItemInit();
     }
 }

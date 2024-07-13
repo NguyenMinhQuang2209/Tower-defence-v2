@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public enum PayErrorMessage
 {
@@ -13,10 +13,12 @@ public enum PayName
 {
     Reward,
     StoreCard,
-    BuildingItem
+    BuildingItem,
+    Upgrade
 }
 public static class PayMessageExtensions
 {
+    public static string MAX_LEVEL = "(Cấp tối đa)";
     private static readonly Dictionary<PayErrorMessage, string> payErrorMessageStrings = new Dictionary<PayErrorMessage, string>
     {
         { PayErrorMessage.NotEnoughCoin, "Not enough coin!" },
@@ -28,12 +30,21 @@ public static class PayMessageExtensions
         { PayMessage.FreeRewardRemain, "The free times remain: " },
 
     };
-    private static readonly Dictionary<PayName, string> PayNameStrings = new Dictionary<PayName, string>
+    private static readonly Dictionary<PayName, string> payNameStrings = new Dictionary<PayName, string>
     {
         { PayName.Reward, "Reward" },
         { PayName.StoreCard, "StoreCard" },
         { PayName.BuildingItem, "BuildingItem" },
+        { PayName.Upgrade, "Upgrade" },
 
+    };
+    public static readonly Dictionary<LevelPlusName, string> payLevelPlusNameStrings = new()
+    {
+        {LevelPlusName.Health,"Máu" },
+        {LevelPlusName.Damage,"Sức mạnh" },
+        {LevelPlusName.Speed,"Tốc độ" },
+        {LevelPlusName.Range,"Khoảng cách" },
+        {LevelPlusName.NumberOfBullet,"Số lượng đạn" },
     };
 
     public static string GetString(this PayErrorMessage payMessage)
@@ -42,10 +53,14 @@ public static class PayMessageExtensions
     }
     public static string GetString(this PayName payMessage)
     {
-        return PayNameStrings[payMessage];
+        return payNameStrings[payMessage];
     }
     public static string GetString(this PayMessage payMessage)
     {
         return payMessageStrings[payMessage];
+    }
+    public static string GetString(this LevelPlusName payMessage)
+    {
+        return payLevelPlusNameStrings[payMessage];
     }
 }

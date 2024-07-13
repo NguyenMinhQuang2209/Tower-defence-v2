@@ -9,7 +9,7 @@ public class SolliderBuildingItem : BuildingItem
     {
         sollider = GetComponent<Sollider>();
     }
-    public override void BuildItemInit()
+    public override void BuildItemInit(bool isTrigger = true)
     {
         if (requires.Count > 0)
         {
@@ -17,8 +17,8 @@ public class SolliderBuildingItem : BuildingItem
             Transform parentTransform = parent.gameObject.transform;
             transform.SetParent(parentTransform, true);
             sollider.ChangeStoreParent(parentTransform.GetComponent<UpgradeItem>());
+            sollider.HideAttackSize();
+            base.BuildItemInit(isTrigger);
         }
-        sollider.HideAttackSize();
-        base.BuildItemInit();
     }
 }
